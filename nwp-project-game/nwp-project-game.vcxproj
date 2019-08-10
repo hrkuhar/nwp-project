@@ -73,6 +73,10 @@
     <IncludePath>..\sdl\SDL2_image-2.0.5\include;..\sdl\SDL2-2.0.10\include;$(IncludePath)</IncludePath>
     <LibraryPath>..\sdl\SDL2_image-2.0.5\lib\x86;..\sdl\SDL2-2.0.10\lib\x86;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <IncludePath>..\sdl\SDL2_image-2.0.5\include;..\sdl\SDL2-2.0.10\include;$(IncludePath)</IncludePath>
+    <LibraryPath>..\sdl\SDL2_image-2.0.5\lib\x86;..\sdl\SDL2-2.0.10\lib\x86;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
@@ -92,6 +96,10 @@
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
     </ClCompile>
+    <Link>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <SubSystem>Console</SubSystem>
+    </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
