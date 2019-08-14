@@ -1,0 +1,56 @@
+#include <SDL.h>
+#include <stdio.h>
+#include <SDL_image.h>
+#include <string>
+#include "Level.h"
+#include "TextureHelper.h"
+
+void Level::init(SDL_Renderer* r) {
+	renderer = r;
+	loadTextures();
+}
+
+void Level::loadTextures() {
+	tileTexture = TextureHelper::loadTexture(renderer, "assets/tile_brick.png");
+}
+
+void Level::render()
+{
+	tiles.clear();
+
+	for (size_t i = 0; i < 12; i++)
+	{
+		for (size_t j = 0; j < 20; j++)
+		{
+			if (map[i][j] == 1)
+			{
+				Tile tile;
+
+				tile.positionX = j * 64;
+				tile.positionY = i * 64;
+				tile.texture = tileTexture;
+
+				tile.collisionRect->h = tile.height;
+				tile.collisionRect->w = tile.width;
+				tile.collisionRect->x = tile.positionX;
+				tile.collisionRect->y = tile.positionY;
+
+				tiles.push_back(tile);
+
+				SDL_Rect targetRect;
+				targetRect.x = j * 64;
+				targetRect.y = i * 64;
+				targetRect.w = 64;
+				targetRect.h = 64;
+
+				SDL_RenderCopy(renderer, tileTexture, NULL, &targetRect);
+			}
+		}
+	}	
+}
+
+
+void Level::clear()
+{
+	SDL_DestroyTexture(tileTexture);
+}

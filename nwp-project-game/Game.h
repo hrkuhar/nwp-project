@@ -12,7 +12,6 @@ public:
 
 	Game();
 	~Game();
-
 	bool isRunning;
 
 	bool init();

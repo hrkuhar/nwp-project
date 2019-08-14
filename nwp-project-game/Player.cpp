@@ -5,23 +5,126 @@
 #include "Player.h"
 #include "Game.h";
 #include "TextureHelper.h";
+#include <vector>
+#include "Tile.h"
+#include "CollisionHelper.h"
+#include "Level.h"
+
+Player::Player(Level* l) {
+	level = l;
+}
 
 void Player::init(SDL_Renderer* r) {
 	renderer = r;
 	loadTextures();
+
+	collisionRect = new  SDL_Rect();
+
+	collisionRect->w = width / 2;
+	collisionRect->h = height;
+	
+	setCOllisionRect();
 }
 
-void Player::update(SDL_Surface* screenSurface) {
+void Player::update() {
 
 	applyGravity();
 
-	positionX += velocityX;
+	if (velocityX > 0)
+	{
+		for (int x = 0; x < velocityX; x++)
+		{
+			positionX += 1;
+			setCOllisionRect();
+
+			for (int i = 0; i < level->tiles.size(); i++)
+			{
+				if (CollisionHelper::checkCollision(collisionRect, level->tiles[i].collisionRect)) {
+					positionX -= 1;
+					setCOllisionRect();
+					break;
+				}
+			}
+		}
+	}
+
+	if (velocityX < 0)
+	{
+		for (int x = 0; x > velocityX; x--)
+		{
+			positionX -= 1;
+			setCOllisionRect();
+
+			for (int i = 0; i < level->tiles.size(); i++)
+			{
+				if (CollisionHelper::checkCollision(collisionRect, level->tiles[i].collisionRect)) {
+					positionX += 1;
+					setCOllisionRect();
+					break;
+				}
+			}
+		}
+	}
+
+	if (velocityY > 0)
+	{
+		for (int y = 0; y < velocityY; y++)
+		{
+			positionY += 1;
+			setCOllisionRect();
+
+			for (int i = 0; i < level->tiles.size(); i++)
+			{
+				if (CollisionHelper::checkCollision(collisionRect, level->tiles[i].collisionRect)) {
+					positionY -= 1;
+					setCOllisionRect();
+					break;
+				}
+			}
+		}
+	}
+
+	if (velocityY < 0)
+	{
+		for (int y = 0; y > velocityY; y--)
+		{
+			positionY -= 1;
+			setCOllisionRect();
+
+			for (int i = 0; i < level->tiles.size(); i++)
+			{
+				if (CollisionHelper::checkCollision(collisionRect, level->tiles[i].collisionRect)) {
+					positionY += 1;
+					setCOllisionRect();
+					break;
+				}
+			}
+		}
+	}
+
+	/*positionX += velocityX;
 	positionY += velocityY;
 
-	checkBoundaries();
+	setCOllisionRect();
 
-	
+	for (int i = 0; i < level->tiles.size(); i++)
+	{
+		if (CollisionHelper::checkCollision(collisionRect, level->tiles[i].collisionRect)) {
+
+			positionX -= velocityX;
+			positionY -= velocityY;
+
+			setCOllisionRect();
+
+			break;
+		}
+	}*/
+
+	checkBoundries();
+
+	setCOllisionRect();
 }
+
 
 void Player::handleEvent(SDL_Event& e) {
 	if (e.type == SDL_KEYDOWN && e.key.repeat == 0)
@@ -59,20 +162,39 @@ void Player::handleEvent(SDL_Event& e) {
 }
 
 bool Player::isOnGround() {
-	return positionY + height >= Game::SCREEN_HEIGHT;
+	SDL_Rect testRect;
+	testRect.h = collisionRect->h;
+	testRect.w = collisionRect->w;
+	testRect.x = collisionRect->x;
+	testRect.y = collisionRect->y + 1;
+
+	for (int i = 0; i < level->tiles.size(); i++)
+	{
+		if (CollisionHelper::checkCollision(&testRect, level->tiles[i].collisionRect)) {
+			return true;
+		}
+	}
+	return false;
 }
 
 void Player::applyGravity() {
 	if (!isOnGround())
 	{
-		if (velocityY < velocity && frame % 3 == 0)
+		if (velocityY < velocity * 2 && frame % 3 == 0)
 		{
 			velocityY += velocity / 2;
 		}
 	}
+	else
+	{
+		if (velocityY > 0)
+		{
+			velocityY = 0;
+		}
+	}
 }
 
-void Player::checkBoundaries() {
+void Player::checkBoundries() {
 	if (positionY + height >= Game::SCREEN_HEIGHT)
 	{
 		positionY = Game::SCREEN_HEIGHT - height;
@@ -116,13 +238,13 @@ void Player::animate() {
 void Player::render() {
 	animate();
 
-	SDL_Rect stretchRect;
-	stretchRect.x = positionX;
-	stretchRect.y = positionY;
-	stretchRect.w = width;
-	stretchRect.h = height;
+	SDL_Rect targetRect;
+	targetRect.x = positionX;
+	targetRect.y = positionY;
+	targetRect.w = width;
+	targetRect.h = height;
 
-	SDL_RenderCopyEx(renderer, currentTexture, NULL, &stretchRect, NULL, NULL, flipTextures);
+	SDL_RenderCopyEx(renderer, currentTexture, NULL, &targetRect, NULL, NULL, flipTextures);
 
 	++frame;
 }
@@ -136,5 +258,13 @@ void Player::clear()
 	}
 
 	SDL_DestroyTexture(standingTexture);
+	standingTexture = NULL;
+
 	SDL_DestroyTexture(jumpingTexture);
+	jumpingTexture = NULL;
+}
+
+void Player::setCOllisionRect() {
+	collisionRect->x = positionX + width / 4;
+	collisionRect->y = positionY;
 }

@@ -2,6 +2,8 @@
 #include <stdio.h>
 #include <SDL_image.h>
 #include <string>
+#include <vector>
+#include "Level.h"
 
 class Player {
 
@@ -29,13 +31,22 @@ private:
 
 	bool isOnGround();
 	void applyGravity();
-	void checkBoundaries();
+	void checkBoundries();
 	void loadTextures();
 	void animate();
+	Level* level;
+	void setCOllisionRect();
 public:
 	void init(SDL_Renderer* renderer);
 	void handleEvent(SDL_Event& e);
-	void update(SDL_Surface* screenSurface);
+	void update();
 	void render();
 	void clear();
+
+	SDL_Rect* collisionRect;
+
+	std::string type;
+	std::string subtype;
+
+	Player(Level* level);
 };

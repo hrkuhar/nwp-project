@@ -3,9 +3,12 @@
 #include <SDL_image.h>
 #include <string>
 #include "Game.h"
-#include "Player.h";
+#include "Player.h"
+#include "CollisionHelper.h"
+#include "Level.h"
 
 Player *player = nullptr;
+Level *level = nullptr;
 
 Game::Game() {
 	isRunning = true;
@@ -16,7 +19,6 @@ Game::~Game() {
 }
 
 bool Game::init() {
-
 	bool success = true;
 
 	if (SDL_Init(SDL_INIT_VIDEO) < 0)
@@ -50,7 +52,10 @@ bool Game::init() {
 		}
 	}
 
-	player = new Player();
+	level = new Level();
+	level->init(renderer);
+
+	player = new Player(level);
 	player->init(renderer);
 
 	return success;
@@ -69,12 +74,13 @@ void Game::handleEvent(SDL_Event& e) {
 }
 
 void Game::update() {
-	player->update(screenSurface);
+	player->update();
 }
 
 void Game::render() {
 	SDL_RenderClear(renderer);
 
+	level->render();
 	player->render();
 
 	SDL_RenderPresent(renderer);
