@@ -42,10 +42,7 @@ void Enemy::update() {
 			for (int i = 0; i < level->tiles.size(); i++)
 			{
 				if (CollisionHelper::checkCollision(collisionRect, level->tiles[i].collisionRect)) {
-					positionX -= velocityX;
-					velocityX = -velocityX;
-					setCOllisionRect();
-					flipTextures = flipTextures == SDL_FLIP_HORIZONTAL ? SDL_FLIP_NONE : SDL_FLIP_HORIZONTAL;
+					changeDirection();
 					break;
 				}
 			}
@@ -250,4 +247,11 @@ void Enemy::clear()
 void Enemy::setCOllisionRect() {
 	collisionRect->x = positionX;
 	collisionRect->y = positionY;
+}
+
+void Enemy::changeDirection() {
+	positionX -= velocityX;
+	velocityX = -velocityX;
+	setCOllisionRect();
+	flipTextures = flipTextures == SDL_FLIP_HORIZONTAL ? SDL_FLIP_NONE : SDL_FLIP_HORIZONTAL;
 }

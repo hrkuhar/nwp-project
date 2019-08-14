@@ -6,6 +6,7 @@
 #include <string>
 #include <vector>
 #include "Level.h"
+#include "Enemy.h"
 
 class Player {
 
@@ -20,8 +21,8 @@ private:
 	const int height = 64;
 	const int velocity = 4;
 
-	int positionX = 600;
-	int positionY = 300;
+	int positionX = 70;
+	int positionY = 70;
 
 	int velocityX = 0;
 	int velocityY = 0;
@@ -38,6 +39,9 @@ private:
 	void animate();
 	Level* level;
 	void setCOllisionRect();
+
+	std::vector<Enemy*> enemies;
+
 public:
 	void init(SDL_Renderer* renderer);
 	void handleEvent(SDL_Event& e);
@@ -50,5 +54,5 @@ public:
 	std::string type;
 	std::string subtype;
 
-	Player(Level* level);
+	Player(Level* level, std::vector<Enemy*> e);
 };

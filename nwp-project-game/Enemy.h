@@ -47,4 +47,6 @@ public:
 	SDL_Rect* collisionRect;
 
 	Enemy(Level* level, int posX, int posY);
+
+	void changeDirection();
 };

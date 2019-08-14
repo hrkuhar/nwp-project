@@ -62,7 +62,7 @@ bool Game::init() {
 	level = new Level();
 	level->init(renderer);
 
-	enemy1 = new Enemy(level, 100, 100);
+	enemy1 = new Enemy(level, 150, 150);
 	enemy1->init(renderer);
 
 	enemy2 = new Enemy(level, 500, 500);
@@ -71,7 +71,7 @@ bool Game::init() {
 	enemies.push_back(enemy1);
 	enemies.push_back(enemy2);
 
-	player = new Player(level);
+	player = new Player(level, enemies);
 	player->init(renderer);
 
 	return success;
@@ -94,6 +94,18 @@ void Game::update() {
 	for (int i = 0; i < enemies.size(); i++)
 	{
 		enemies[i]->update();
+	}
+
+	for (int i = 0; i < enemies.size(); i++)
+	{
+		for (int j = i + 1; j < enemies.size(); j++)
+		{
+			if (CollisionHelper::checkCollision(enemies[i]->collisionRect, enemies[j]->collisionRect))
+			{
+				enemies[i]->changeDirection();
+				enemies[j]->changeDirection();
+			}
+		}
 	}
 
 	player->update();

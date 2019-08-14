@@ -12,8 +12,9 @@
 #include "CollisionHelper.h"
 #include "Level.h"
 
-Player::Player(Level* l) {
+Player::Player(Level* l, std::vector<Enemy*> e) {
 	level = l;
+	enemies = e;
 }
 
 void Player::init(SDL_Renderer* r) {
@@ -101,6 +102,14 @@ void Player::update() {
 					break;
 				}
 			}
+		}
+	}
+
+	for (int i = 0; i < enemies.size(); i++)
+	{
+		if (CollisionHelper::checkCollision(collisionRect, enemies[i]->collisionRect)) {
+			positionX = 70;
+			positionY = 70;
 		}
 	}
 
