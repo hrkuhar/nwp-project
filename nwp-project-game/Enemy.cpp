@@ -4,7 +4,7 @@
 #include <stdio.h>
 #include <SDL_image.h>
 #include <string>
-#include "Player.h"
+#include "Enemy.h"
 #include "Game.h";
 #include "TextureHelper.h";
 #include <vector>
@@ -12,61 +12,45 @@
 #include "CollisionHelper.h"
 #include "Level.h"
 
-Player::Player(Level* l) {
+Enemy::Enemy(Level* l, int posX, int posY) {
 	level = l;
+	positionX = posX;
+	positionY = posY;
 }
 
-void Player::init(SDL_Renderer* r) {
+void Enemy::init(SDL_Renderer* r) {
 	renderer = r;
 	loadTextures();
 
 	collisionRect = new  SDL_Rect();
 
-	collisionRect->w = width / 2;
+	collisionRect->w = width;
 	collisionRect->h = height;
-	
+
 	setCOllisionRect();
 }
 
-void Player::update() {
+void Enemy::update() {
 
 	applyGravity();
 
-	if (velocityX > 0)
-	{
-		for (int x = 0; x < velocityX; x++)
-		{
-			positionX += 1;
-			setCOllisionRect();
+	positionX += velocityX;
+	setCOllisionRect();
 
+	if (velocityX != 0)
+	{
 			for (int i = 0; i < level->tiles.size(); i++)
 			{
 				if (CollisionHelper::checkCollision(collisionRect, level->tiles[i].collisionRect)) {
-					positionX -= 1;
+					positionX -= velocityX;
+					velocityX = -velocityX;
 					setCOllisionRect();
 					break;
 				}
 			}
-		}
+		
 	}
 
-	if (velocityX < 0)
-	{
-		for (int x = 0; x > velocityX; x--)
-		{
-			positionX -= 1;
-			setCOllisionRect();
-
-			for (int i = 0; i < level->tiles.size(); i++)
-			{
-				if (CollisionHelper::checkCollision(collisionRect, level->tiles[i].collisionRect)) {
-					positionX += 1;
-					setCOllisionRect();
-					break;
-				}
-			}
-		}
-	}
 
 	if (velocityY > 0)
 	{
@@ -128,7 +112,7 @@ void Player::update() {
 }
 
 
-void Player::handleEvent(SDL_Event& e) {
+void Enemy::handleEvent(SDL_Event& e) {
 	if (e.type == SDL_KEYDOWN && e.key.repeat == 0)
 	{
 		switch (e.key.keysym.sym)
@@ -141,11 +125,11 @@ void Player::handleEvent(SDL_Event& e) {
 			break;
 		case SDLK_LEFT:
 			flipTextures = SDL_FLIP_HORIZONTAL;
-			velocityX -= velocity; 
+			velocityX -= velocity;
 			break;
 		case SDLK_RIGHT:
 			flipTextures = SDL_FLIP_NONE;
-			velocityX += velocity; 
+			velocityX += velocity;
 			break;
 		}
 	}
@@ -153,17 +137,17 @@ void Player::handleEvent(SDL_Event& e) {
 	{
 		switch (e.key.keysym.sym)
 		{
-		case SDLK_LEFT: 
-			velocityX += velocity; 
+		case SDLK_LEFT:
+			velocityX += velocity;
 			break;
-		case SDLK_RIGHT: 
-			velocityX -= velocity; 
+		case SDLK_RIGHT:
+			velocityX -= velocity;
 			break;
 		}
 	}
 }
 
-bool Player::isOnGround() {
+bool Enemy::isOnGround() {
 	SDL_Rect testRect;
 	testRect.h = collisionRect->h;
 	testRect.w = collisionRect->w;
@@ -179,7 +163,7 @@ bool Player::isOnGround() {
 	return false;
 }
 
-void Player::applyGravity() {
+void Enemy::applyGravity() {
 	if (!isOnGround())
 	{
 		if (velocityY < velocity * 2 && frame % 3 == 0)
@@ -196,7 +180,7 @@ void Player::applyGravity() {
 	}
 }
 
-void Player::checkBoundries() {
+void Enemy::checkBoundries() {
 	if (positionY + height >= Game::SCREEN_HEIGHT)
 	{
 		positionY = Game::SCREEN_HEIGHT - height;
@@ -211,33 +195,15 @@ void Player::checkBoundries() {
 	}
 }
 
-void Player::loadTextures() {
-
-	for (int i = 0; i < 4; i++)
-	{
-		std::string path = "assets/player_move_right_" + std::to_string(i + 1) + ".png";
-		moveRightTextures[i] = TextureHelper::loadTexture(renderer, path);
-	}
-
-	standingTexture = TextureHelper::loadTexture(renderer, "assets/player_stand.png");
-	jumpingTexture = TextureHelper::loadTexture(renderer, "assets/player_jump.png");
+void Enemy::loadTextures() {
+	standingTexture = TextureHelper::loadTexture(renderer, "assets/enemy.png");
 }
 
-void Player::animate() {
-	if (!isOnGround())
-	{
-		currentTexture = jumpingTexture;
-	}
-	else if (velocityX != 0)
-	{
-		currentTexture = moveRightTextures[(frame / 4) % 4];
-	}
-	else {
-		currentTexture = standingTexture;
-	}
+void Enemy::animate() {
+	currentTexture = standingTexture;
 }
 
-void Player::render() {
+void Enemy::render() {
 	animate();
 
 	SDL_Rect targetRect;
@@ -251,22 +217,13 @@ void Player::render() {
 	++frame;
 }
 
-void Player::clear()
+void Enemy::clear()
 {
-	for (int i = 0; i < 4; i++)
-	{
-		SDL_DestroyTexture(moveRightTextures[i]);
-		moveRightTextures[i] = NULL;
-	}
-
 	SDL_DestroyTexture(standingTexture);
 	standingTexture = NULL;
-
-	SDL_DestroyTexture(jumpingTexture);
-	jumpingTexture = NULL;
 }
 
-void Player::setCOllisionRect() {
-	collisionRect->x = positionX + width / 4;
+void Enemy::setCOllisionRect() {
+	collisionRect->x = positionX;
 	collisionRect->y = positionY;
 }

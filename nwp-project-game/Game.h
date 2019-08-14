@@ -1,5 +1,9 @@
+#pragma once
+
 #include <SDL.h>
 #include <stdio.h>
+#include <vector>
+#include "Enemy.h"
 
 class Game {
 private:
@@ -19,4 +23,6 @@ public:
 	void render();
 	void clear();
 	void handleEvent(SDL_Event& e);
+
+	std::vector<Enemy*> enemies;
 };

@@ -1,3 +1,5 @@
+#pragma once
+
 #include <SDL.h>
 #include <stdio.h>
 #include <SDL_image.h>
@@ -6,9 +8,14 @@
 #include "Player.h"
 #include "CollisionHelper.h"
 #include "Level.h"
+#include "Enemy.h"
+#include <vector>
 
 Player *player = nullptr;
 Level *level = nullptr;
+Enemy *enemy1 = nullptr;
+Enemy *enemy2 = nullptr;
+
 
 Game::Game() {
 	isRunning = true;
@@ -55,6 +62,15 @@ bool Game::init() {
 	level = new Level();
 	level->init(renderer);
 
+	enemy1 = new Enemy(level, 100, 100);
+	enemy1->init(renderer);
+
+	enemy2 = new Enemy(level, 500, 500);
+	enemy2->init(renderer);
+
+	enemies.push_back(enemy1);
+	enemies.push_back(enemy2);
+
 	player = new Player(level);
 	player->init(renderer);
 
@@ -74,6 +90,12 @@ void Game::handleEvent(SDL_Event& e) {
 }
 
 void Game::update() {
+
+	for (int i = 0; i < enemies.size(); i++)
+	{
+		enemies[i]->update();
+	}
+
 	player->update();
 }
 
@@ -81,6 +103,10 @@ void Game::render() {
 	SDL_RenderClear(renderer);
 
 	level->render();
+	for (int i = 0; i < enemies.size(); i++)
+	{
+		enemies[i]->render();
+	}	
 	player->render();
 
 	SDL_RenderPresent(renderer);

@@ -7,23 +7,21 @@
 #include <vector>
 #include "Level.h"
 
-class Player {
+class Enemy {
 
 private:
 	SDL_Texture* currentTexture;
 
-	SDL_Texture* moveRightTextures[4];
 	SDL_Texture* standingTexture;
-	SDL_Texture* jumpingTexture;
 
 	const int width = 64;
 	const int height = 64;
-	const int velocity = 4;
+	const int velocity = 2;
 
-	int positionX = 600;
-	int positionY = 300;
+	int positionX;
+	int positionY;
 
-	int velocityX = 0;
+	int velocityX = 2;
 	int velocityY = 0;
 
 	int frame = 1;
@@ -47,8 +45,5 @@ public:
 
 	SDL_Rect* collisionRect;
 
-	std::string type;
-	std::string subtype;
-
-	Player(Level* level);
+	Enemy(Level* level, int posX, int posY);
 };
