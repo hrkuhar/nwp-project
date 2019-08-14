@@ -13,6 +13,7 @@ private:
 	SDL_Texture* currentTexture;
 
 	SDL_Texture* standingTexture;
+	SDL_Texture* moveRightTextures[4];
 
 	const int width = 64;
 	const int height = 64;

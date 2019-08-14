@@ -45,6 +45,7 @@ void Enemy::update() {
 					positionX -= velocityX;
 					velocityX = -velocityX;
 					setCOllisionRect();
+					flipTextures = flipTextures == SDL_FLIP_HORIZONTAL ? SDL_FLIP_NONE : SDL_FLIP_HORIZONTAL;
 					break;
 				}
 			}
@@ -196,11 +197,28 @@ void Enemy::checkBoundries() {
 }
 
 void Enemy::loadTextures() {
+
+	for (int i = 0; i < 4; i++)
+	{
+		std::string path = "assets/enemy_move_" + std::to_string(i + 1) + ".png";
+		moveRightTextures[i] = TextureHelper::loadTexture(renderer, path);
+	}
+
 	standingTexture = TextureHelper::loadTexture(renderer, "assets/enemy.png");
 }
 
 void Enemy::animate() {
-	currentTexture = standingTexture;
+	if (!isOnGround())
+	{
+		currentTexture = moveRightTextures[0];
+	}
+	else if (velocityX != 0)
+	{
+		currentTexture = moveRightTextures[(frame / 4) % 4];
+	}
+	else {
+		currentTexture = moveRightTextures[0];;
+	}
 }
 
 void Enemy::render() {
@@ -219,6 +237,12 @@ void Enemy::render() {
 
 void Enemy::clear()
 {
+	for (int i = 0; i < 4; i++)
+	{
+		SDL_DestroyTexture(moveRightTextures[i]);
+		moveRightTextures[i] = NULL;
+	}
+
 	SDL_DestroyTexture(standingTexture);
 	standingTexture = NULL;
 }
