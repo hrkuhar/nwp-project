@@ -13,3 +13,8 @@ void GameObject::render() {
 
 	SDL_RenderCopyEx(Game::renderer, texture, NULL, &targetRect, NULL, NULL, flipTextures);
 }
+
+GameObject::GameObject(int x, int y) {
+	positionX = x;
+	positionY = y;
+}

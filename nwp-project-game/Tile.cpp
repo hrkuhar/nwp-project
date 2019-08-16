@@ -1,13 +1,11 @@
 #pragma once
 
 #include <SDL.h>
-#include "Collider.h"
+#include "CollidingObject.h"
 #include "Tile.h"
 #include "Game.h"
 
-Tile::Tile(int x, int y, SDL_Texture* t) {
-	positionX = x;
-	positionY = y;
+Tile::Tile(int x, int y, SDL_Texture* t) : CollidingObject(x, y) {
 	texture = t;
 }
 

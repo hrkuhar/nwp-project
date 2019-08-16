@@ -12,4 +12,5 @@ protected:
 public:
 	virtual void update() = 0;
 	void render();
+	GameObject(int x, int y);
 };

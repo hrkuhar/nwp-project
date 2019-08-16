@@ -12,9 +12,8 @@
 #include "CollisionHelper.h"
 #include "Level.h"
 
-Enemy::Enemy(int posX, int posY) {
-	positionX = posX;
-	positionY = posY;
+Enemy::Enemy(int x, int y) : MobileObject(x, y, 2, 2, 0) {
+
 }
 
 
@@ -96,90 +95,6 @@ void Enemy::update() {
 	animate();
 }
 
-
-void Enemy::handleEvent(SDL_Event& e) {
-	if (e.type == SDL_KEYDOWN && e.key.repeat == 0)
-	{
-		switch (e.key.keysym.sym)
-		{
-		case SDLK_UP:
-			if (isOnGround())
-			{
-				velocityY -= velocity * 4;
-			}
-			break;
-		case SDLK_LEFT:
-			flipTextures = SDL_FLIP_HORIZONTAL;
-			velocityX -= velocity;
-			break;
-		case SDLK_RIGHT:
-			flipTextures = SDL_FLIP_NONE;
-			velocityX += velocity;
-			break;
-		}
-	}
-	else if (e.type == SDL_KEYUP && e.key.repeat == 0)
-	{
-		switch (e.key.keysym.sym)
-		{
-		case SDLK_LEFT:
-			velocityX += velocity;
-			break;
-		case SDLK_RIGHT:
-			velocityX -= velocity;
-			break;
-		}
-	}
-}
-
-bool Enemy::isOnGround() {
-	SDL_Rect testRect;
-	testRect.h = collisionRect->h;
-	testRect.w = collisionRect->w;
-	testRect.x = collisionRect->x;
-	testRect.y = collisionRect->y + 1;
-
-	for (int i = 0; i < Level::tiles.size(); i++)
-	{
-		if (CollisionHelper::checkCollision(&testRect, Level::tiles[i]->collisionRect)) {
-			return true;
-		}
-	}
-	return false;
-}
-
-void Enemy::applyGravity() {
-	if (!isOnGround())
-	{
-		if (velocityY < velocity * 2 && Game::frame % 3 == 0)
-		{
-			velocityY += velocity / 2;
-		}
-	}
-	else
-	{
-		if (velocityY > 0)
-		{
-			velocityY = 0;
-		}
-	}
-}
-
-void Enemy::checkBoundries() {
-	if (positionY + HEIGHT >= Game::SCREEN_HEIGHT)
-	{
-		positionY = Game::SCREEN_HEIGHT - HEIGHT;
-	}
-	if (positionX < 1)
-	{
-		positionX = 1;
-	}
-	if (positionX + WIDTH >= Game::SCREEN_WIDTH)
-	{
-		positionX = Game::SCREEN_WIDTH - WIDTH;
-	}
-}
-
 void Enemy::loadTextures() {
 
 	for (int i = 0; i < 4; i++)
@@ -215,13 +130,6 @@ void Enemy::clear()
 
 	SDL_DestroyTexture(standingTexture);
 	standingTexture = NULL;
-}
-
-void Enemy::setCollisionRect() {
-	collisionRect->w = WIDTH;
-	collisionRect->h = HEIGHT;
-	collisionRect->x = positionX;
-	collisionRect->y = positionY;
 }
 
 void Enemy::changeDirection() {

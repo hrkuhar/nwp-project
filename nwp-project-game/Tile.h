@@ -2,10 +2,10 @@
 
 #include <SDL.h>
 #include <string>
-#include "Collider.h"
+#include "CollidingObject.h"
 #include "GameObject.h"
 
-class Tile : public GameObject, public Collider {
+class Tile : public CollidingObject {
 
 public:
 	void setCollisionRect();

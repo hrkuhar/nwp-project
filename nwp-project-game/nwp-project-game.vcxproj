@@ -130,23 +130,26 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="CollidingObject.cpp" />
     <ClCompile Include="CollisionHelper.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="Level.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="MobileObject.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="TextureHelper.cpp" />
     <ClCompile Include="Tile.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Collider.h" />
+    <ClInclude Include="CollidingObject.h" />
     <ClInclude Include="CollisionHelper.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="Level.h" />
+    <ClInclude Include="MobileObject.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="TextureHelper.h" />
     <ClInclude Include="Tile.h" />
