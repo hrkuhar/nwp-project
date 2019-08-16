@@ -108,27 +108,11 @@ void Player::update() {
 		}
 	}
 
-	/*positionX += velocityX;
-	positionY += velocityY;
-
-	setCOllisionRect();
-
-	for (int i = 0; i < level->tiles.size(); i++)
-	{
-		if (CollisionHelper::checkCollision(collisionRect, level->tiles[i].collisionRect)) {
-
-			positionX -= velocityX;
-			positionY -= velocityY;
-
-			setCOllisionRect();
-
-			break;
-		}
-	}*/
-
 	checkBoundries();
 
 	setCollisionRect();
+
+	animate();
 }
 
 
@@ -239,11 +223,6 @@ void Player::animate() {
 	else {
 		texture = standingTexture;
 	}
-}
-
-void Player::render() {
-	animate();
-	GameObject::render();
 }
 
 void Player::clear()

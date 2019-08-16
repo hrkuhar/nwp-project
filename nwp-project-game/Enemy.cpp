@@ -100,6 +100,8 @@ void Enemy::update() {
 	checkBoundries();
 
 	setCollisionRect();
+
+	animate();
 }
 
 
@@ -209,11 +211,6 @@ void Enemy::animate() {
 	else {
 		texture = moveRightTextures[0];;
 	}
-}
-
-void Enemy::render() {
-	animate();
-	GameObject::render();
 }
 
 void Enemy::clear()

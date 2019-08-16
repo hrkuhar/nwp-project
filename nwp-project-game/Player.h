@@ -35,7 +35,6 @@ public:
 	void init();
 	void handleEvent(SDL_Event& e);
 	void update();
-	void render();
 	void clear();
 
 	std::string type;
