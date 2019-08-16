@@ -97,7 +97,6 @@ void Game::render() {
 }
 
 void Game::clear() {
-	player->clear();
 	TextureHelper::clear();
 
 	SDL_DestroyWindow(window);
