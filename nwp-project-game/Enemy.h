@@ -7,27 +7,18 @@
 #include <vector>
 #include "Level.h"
 
-class Enemy : public Collider {
+class Enemy : public GameObject, public Collider {
 
 private:
-	SDL_Texture* currentTexture;
 
 	SDL_Texture* standingTexture;
 	SDL_Texture* moveRightTextures[4];
 
-	const int width = 64;
-	const int height = 64;
 	const int velocity = 2;
-
-	int positionX;
-	int positionY;
 
 	int velocityX = 2;
 	int velocityY = 0;
 
-	int frame = 1;
-
-	SDL_RendererFlip flipTextures = SDL_FLIP_NONE;
 
 	bool isOnGround();
 	void applyGravity();

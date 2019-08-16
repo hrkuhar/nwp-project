@@ -12,9 +12,11 @@
 #include "CollisionHelper.h"
 #include "Level.h"
 
-Player::Player(Level* l, std::vector<Enemy*> e) {
+Player::Player(int x, int y, Level* l, std::vector<Enemy*> e) {
 	level = l;
 	enemies = e;
+	positionX = x;
+	positionY = y;
 }
 
 void Player::init() {
@@ -184,7 +186,7 @@ bool Player::isOnGround() {
 void Player::applyGravity() {
 	if (!isOnGround())
 	{
-		if (velocityY < velocity * 2 && frame % 3 == 0)
+		if (velocityY < velocity * 2 && Game::frame % 3 == 0)
 		{
 			velocityY += velocity / 2;
 		}
@@ -199,17 +201,17 @@ void Player::applyGravity() {
 }
 
 void Player::checkBoundries() {
-	if (positionY + height >= Game::SCREEN_HEIGHT)
+	if (positionY + HEIGHT >= Game::SCREEN_HEIGHT)
 	{
-		positionY = Game::SCREEN_HEIGHT - height;
+		positionY = Game::SCREEN_HEIGHT - HEIGHT;
 	}
 	if (positionX < 1)
 	{
 		positionX = 1;
 	}
-	if (positionX + width >= Game::SCREEN_WIDTH)
+	if (positionX + WIDTH >= Game::SCREEN_WIDTH)
 	{
-		positionX = Game::SCREEN_WIDTH - width;
+		positionX = Game::SCREEN_WIDTH - WIDTH;
 	}
 }
 
@@ -228,29 +230,20 @@ void Player::loadTextures() {
 void Player::animate() {
 	if (!isOnGround())
 	{
-		currentTexture = jumpingTexture;
+		texture = jumpingTexture;
 	}
 	else if (velocityX != 0)
 	{
-		currentTexture = moveRightTextures[(frame / 4) % 4];
+		texture = moveRightTextures[(Game::frame / 4) % 4];
 	}
 	else {
-		currentTexture = standingTexture;
+		texture = standingTexture;
 	}
 }
 
 void Player::render() {
 	animate();
-
-	SDL_Rect targetRect;
-	targetRect.x = positionX;
-	targetRect.y = positionY;
-	targetRect.w = width;
-	targetRect.h = height;
-
-	SDL_RenderCopyEx(Game::renderer, currentTexture, NULL, &targetRect, NULL, NULL, flipTextures);
-
-	++frame;
+	GameObject::render();
 }
 
 void Player::clear()
@@ -269,8 +262,8 @@ void Player::clear()
 }
 
 void Player::setCollisionRect() {
-	collisionRect->w = width / 2;
-	collisionRect->h = height;
-	collisionRect->x = positionX + width / 4;
+	collisionRect->w = WIDTH / 2;
+	collisionRect->h = HEIGHT;
+	collisionRect->x = positionX + WIDTH / 4;
 	collisionRect->y = positionY;
 }

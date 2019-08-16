@@ -11,6 +11,7 @@ private:
 	SDL_Surface* screenSurface;
 public:
 	static SDL_Renderer* renderer;
+	static int frame;
 
 	static const int SCREEN_WIDTH = 1280;
 	static const int SCREEN_HEIGHT = 720;

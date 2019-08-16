@@ -157,7 +157,7 @@ bool Enemy::isOnGround() {
 void Enemy::applyGravity() {
 	if (!isOnGround())
 	{
-		if (velocityY < velocity * 2 && frame % 3 == 0)
+		if (velocityY < velocity * 2 && Game::frame % 3 == 0)
 		{
 			velocityY += velocity / 2;
 		}
@@ -172,17 +172,17 @@ void Enemy::applyGravity() {
 }
 
 void Enemy::checkBoundries() {
-	if (positionY + height >= Game::SCREEN_HEIGHT)
+	if (positionY + HEIGHT >= Game::SCREEN_HEIGHT)
 	{
-		positionY = Game::SCREEN_HEIGHT - height;
+		positionY = Game::SCREEN_HEIGHT - HEIGHT;
 	}
 	if (positionX < 1)
 	{
 		positionX = 1;
 	}
-	if (positionX + width >= Game::SCREEN_WIDTH)
+	if (positionX + WIDTH >= Game::SCREEN_WIDTH)
 	{
-		positionX = Game::SCREEN_WIDTH - width;
+		positionX = Game::SCREEN_WIDTH - WIDTH;
 	}
 }
 
@@ -200,29 +200,20 @@ void Enemy::loadTextures() {
 void Enemy::animate() {
 	if (!isOnGround())
 	{
-		currentTexture = moveRightTextures[0];
+		texture = moveRightTextures[0];
 	}
 	else if (velocityX != 0)
 	{
-		currentTexture = moveRightTextures[(frame / 4) % 4];
+		texture = moveRightTextures[(Game::frame / 4) % 4];
 	}
 	else {
-		currentTexture = moveRightTextures[0];;
+		texture = moveRightTextures[0];;
 	}
 }
 
 void Enemy::render() {
 	animate();
-
-	SDL_Rect targetRect;
-	targetRect.x = positionX;
-	targetRect.y = positionY;
-	targetRect.w = width;
-	targetRect.h = height;
-
-	SDL_RenderCopyEx(Game::renderer, currentTexture, NULL, &targetRect, NULL, NULL, flipTextures);
-
-	++frame;
+	GameObject::render();
 }
 
 void Enemy::clear()
@@ -238,8 +229,8 @@ void Enemy::clear()
 }
 
 void Enemy::setCollisionRect() {
-	collisionRect->w = width;
-	collisionRect->h = height;
+	collisionRect->w = WIDTH;
+	collisionRect->h = HEIGHT;
 	collisionRect->x = positionX;
 	collisionRect->y = positionY;
 }

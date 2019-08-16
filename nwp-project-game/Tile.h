@@ -3,18 +3,13 @@
 #include <SDL.h>
 #include <string>
 #include "Collider.h"
+#include "GameObject.h"
 
-class Tile : public Collider {
+class Tile : public GameObject, public Collider {
 
 public:
-	SDL_Texture* texture;
-
-	const int width = 64;
-	const int height = 64;
-
-	int positionX;
-	int positionY;
-
 	void setCollisionRect();
+	void update();
 
+	Tile(int x, int y, SDL_Texture* t);
 };
