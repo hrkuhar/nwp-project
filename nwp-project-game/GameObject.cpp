@@ -3,6 +3,7 @@
 #include <SDL.h>
 #include "GameObject.h"
 #include "Game.h"
+#include "TextureHelper.h"
 
 void GameObject::render() {
 	SDL_Rect targetRect;
@@ -14,7 +15,13 @@ void GameObject::render() {
 	SDL_RenderCopyEx(Game::renderer, texture, NULL, &targetRect, NULL, NULL, flipTextures);
 }
 
-GameObject::GameObject(int x, int y) {
+GameObject::GameObject(int x, int y, std::string ap) {
 	positionX = x;
 	positionY = y;
+	assetsPrefix = ap;
+	setTextures();
+}
+
+void GameObject::setTextures() {
+	standingTexture = TextureHelper::textures[assetsPrefix + "_stand"];
 }

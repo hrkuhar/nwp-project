@@ -11,5 +11,5 @@ public:
 	void setCollisionRect();
 	void update();
 
-	Tile(int x, int y, SDL_Texture* t);
+	Tile(int x, int y, std::string ap);
 };

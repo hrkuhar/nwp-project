@@ -1,9 +1,10 @@
 #pragma once
 
 #include "CollidingObject.h"
+#include <string.h>
 
-CollidingObject::CollidingObject(int x, int y) : GameObject(x, y) {
-
+CollidingObject::CollidingObject(int x, int y, std::string ap) : GameObject(x, y, ap) {
+	setCollisionRect();
 }
 
 void CollidingObject::setCollisionRect() {

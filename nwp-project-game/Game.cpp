@@ -10,6 +10,7 @@
 #include "Level.h"
 #include "Enemy.h"
 #include <vector>
+#include "TextureHelper.h"
 
 Player *player = nullptr;
 Level *level = nullptr;
@@ -58,10 +59,12 @@ bool Game::init() {
 		}
 	}
 
+	TextureHelper::loadTextures();
+
 	level = new Level();
 	level->init();
 
-	player = new Player(70, 70);
+	player = new Player(70, 70, "player");
 	player->init();
 
 	return success;
@@ -95,6 +98,7 @@ void Game::render() {
 
 void Game::clear() {
 	player->clear();
+	TextureHelper::clear();
 
 	SDL_DestroyWindow(window);
 	window = NULL;

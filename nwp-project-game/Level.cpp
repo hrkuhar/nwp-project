@@ -25,17 +25,17 @@ void Level::init() {
 		{
 			if (map[i][j] == 1)
 			{
-				Tile* tile = new Tile(j * 64, i * 64, tileTexture);
+				Tile* tile = new Tile(j * 64, i * 64, "tile");
 				tile->setCollisionRect();
 				tiles.push_back(tile);
 			}
 		}
 	}
 
-	enemy1 = new Enemy(150, 150);
+	enemy1 = new Enemy(150, 150, "enemy");
 	enemy1->init();
 
-	enemy2 = new Enemy(500, 500);
+	enemy2 = new Enemy(500, 500, "enemy");
 	enemy2->init();
 
 	enemies.push_back(enemy1);

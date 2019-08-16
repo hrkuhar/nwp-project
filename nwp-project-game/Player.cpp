@@ -12,13 +12,12 @@
 #include "CollisionHelper.h"
 #include "Level.h"
 
-Player::Player(int x, int y) : MobileObject(x, y, 4, 0, 0) {
+Player::Player(int x, int y, std::string ap) : MobileObject(x, y, ap, 4, 0, 0) {
 
 }
 
 void Player::init() {
-	loadTextures();
-	setCollisionRect();
+
 }
 
 void Player::update() {
@@ -106,12 +105,9 @@ void Player::update() {
 	}
 
 	checkBoundries();
-
 	setCollisionRect();
-
 	animate();
 }
-
 
 void Player::handleEvent(SDL_Event& e) {
 	if (e.type == SDL_KEYDOWN && e.key.repeat == 0)
@@ -148,21 +144,6 @@ void Player::handleEvent(SDL_Event& e) {
 	}
 }
 
-
-
-
-void Player::loadTextures() {
-
-	for (int i = 0; i < 4; i++)
-	{
-		std::string path = "assets/player_move_right_" + std::to_string(i + 1) + ".png";
-		moveRightTextures[i] = TextureHelper::loadTexture(Game::renderer, path);
-	}
-
-	standingTexture = TextureHelper::loadTexture(Game::renderer, "assets/player_stand.png");
-	jumpingTexture = TextureHelper::loadTexture(Game::renderer, "assets/player_jump.png");
-}
-
 void Player::animate() {
 	if (!isOnGround())
 	{
@@ -170,26 +151,11 @@ void Player::animate() {
 	}
 	else if (velocityX != 0)
 	{
-		texture = moveRightTextures[(Game::frame / 4) % 4];
+		texture = moveTextures[(Game::frame / 4) % 4];
 	}
 	else {
 		texture = standingTexture;
 	}
-}
-
-void Player::clear()
-{
-	for (int i = 0; i < 4; i++)
-	{
-		SDL_DestroyTexture(moveRightTextures[i]);
-		moveRightTextures[i] = NULL;
-	}
-
-	SDL_DestroyTexture(standingTexture);
-	standingTexture = NULL;
-
-	SDL_DestroyTexture(jumpingTexture);
-	jumpingTexture = NULL;
 }
 
 void Player::setCollisionRect() {

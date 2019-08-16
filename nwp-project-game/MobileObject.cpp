@@ -4,11 +4,14 @@
 #include "Level.h"
 #include "CollisionHelper.h"
 #include "Game.h"
+#include "TextureHelper.h"
+#include <string>
 
-MobileObject::MobileObject(int x, int y, int vel, int velX, int velY) : CollidingObject(x, y) {
+MobileObject::MobileObject(int x, int y, std::string ap, int vel, int velX, int velY) : CollidingObject(x, y, ap) {
 	velocity = vel;
 	velocityX = velX;
 	velocityY = velY;
+	setTextures();
 }
 
 bool MobileObject::isOnGround() {
@@ -56,5 +59,14 @@ void MobileObject::checkBoundries() {
 	if (positionX + WIDTH >= Game::SCREEN_WIDTH)
 	{
 		positionX = Game::SCREEN_WIDTH - WIDTH;
+	}
+}
+
+void MobileObject::setTextures() {
+	GameObject::setTextures();
+	jumpingTexture = TextureHelper::textures[assetsPrefix + "_jump"];
+	for (int i = 0; i < 4; i++)
+	{
+		moveTextures[i] = TextureHelper::textures[assetsPrefix + "_move_" + std::to_string(i + 1)];
 	}
 }

@@ -2,6 +2,7 @@
 
 #include <SDL.h>
 #include "CollidingObject.h"
+#include <string>
 
 class MobileObject : public CollidingObject {
 protected:
@@ -11,7 +12,10 @@ protected:
 	bool isOnGround();
 	void applyGravity();
 	void checkBoundries();
+	SDL_Texture* jumpingTexture;
+	SDL_Texture* moveTextures[4];
 public:
-	MobileObject(int x, int y, int vel, int velX, int velY);
+	MobileObject(int x, int y, std::string ap, int vel, int velX, int velY);
+	void setTextures();
 };
 

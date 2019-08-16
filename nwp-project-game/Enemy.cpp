@@ -12,14 +12,12 @@
 #include "CollisionHelper.h"
 #include "Level.h"
 
-Enemy::Enemy(int x, int y) : MobileObject(x, y, 2, 2, 0) {
+Enemy::Enemy(int x, int y, std::string ap) : MobileObject(x, y, ap, 2, 2, 0) {
 
 }
 
-
 void Enemy::init() {
-	loadTextures();
-	setCollisionRect();
+	
 }
 
 void Enemy::update() {
@@ -95,41 +93,18 @@ void Enemy::update() {
 	animate();
 }
 
-void Enemy::loadTextures() {
-
-	for (int i = 0; i < 4; i++)
-	{
-		std::string path = "assets/enemy_move_" + std::to_string(i + 1) + ".png";
-		moveRightTextures[i] = TextureHelper::loadTexture(Game::renderer, path);
-	}
-
-	standingTexture = TextureHelper::loadTexture(Game::renderer, "assets/enemy.png");
-}
-
 void Enemy::animate() {
 	if (!isOnGround())
 	{
-		texture = moveRightTextures[0];
+		texture = moveTextures[0];
 	}
 	else if (velocityX != 0)
 	{
-		texture = moveRightTextures[(Game::frame / 4) % 4];
+		texture = moveTextures[(Game::frame / 4) % 4];
 	}
 	else {
-		texture = moveRightTextures[0];;
+		texture = moveTextures[0];;
 	}
-}
-
-void Enemy::clear()
-{
-	for (int i = 0; i < 4; i++)
-	{
-		SDL_DestroyTexture(moveRightTextures[i]);
-		moveRightTextures[i] = NULL;
-	}
-
-	SDL_DestroyTexture(standingTexture);
-	standingTexture = NULL;
 }
 
 void Enemy::changeDirection() {

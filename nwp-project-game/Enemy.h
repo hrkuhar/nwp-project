@@ -11,18 +11,12 @@
 class Enemy : public MobileObject {
 
 private:
-
-	SDL_Texture* standingTexture;
-	SDL_Texture* moveRightTextures[4];
-
-	void loadTextures();
 	void animate();
 public:
 	void init();
 	void update();
-	void clear();
 
-	Enemy(int posX, int posY);
+	Enemy(int posX, int posY, std::string ap);
 
 	void changeDirection();
 };
