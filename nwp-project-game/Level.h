@@ -4,8 +4,9 @@
 #include <stdio.h>
 #include <SDL_image.h>
 #include <string>
-#include "Tile.h";
+#include "Tile.h"
 #include <vector>
+#include "Enemy.h"
 
 class Level {
 
@@ -30,8 +31,10 @@ private:
 	};
 public:
 	void init();
+	void update();
 	void render();
 	void clear();
 
-	std::vector<Tile> tiles;
+	static std::vector<Tile*> tiles;
+	static std::vector<Enemy*> enemies;
 };

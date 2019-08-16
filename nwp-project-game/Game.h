@@ -25,6 +25,4 @@ public:
 	void render();
 	void clear();
 	void handleEvent(SDL_Event& e);
-
-	std::vector<Enemy*> enemies;
 };

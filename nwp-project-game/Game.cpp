@@ -13,11 +13,8 @@
 
 Player *player = nullptr;
 Level *level = nullptr;
-Enemy *enemy1 = nullptr;
-Enemy *enemy2 = nullptr;
 SDL_Renderer* Game::renderer = nullptr;
 int Game::frame = 1;
-
 
 Game::Game() {
 	isRunning = true;
@@ -64,23 +61,13 @@ bool Game::init() {
 	level = new Level();
 	level->init();
 
-	enemy1 = new Enemy(level, 150, 150);
-	enemy1->init();
-
-	enemy2 = new Enemy(level, 500, 500);
-	enemy2->init();
-
-	enemies.push_back(enemy1);
-	enemies.push_back(enemy2);
-
-	player = new Player(70, 70, level, enemies);
+	player = new Player(70, 70);
 	player->init();
 
 	return success;
 }
 
 void Game::handleEvent(SDL_Event& e) {
-
 	if (e.type == SDL_QUIT)
 	{
 		isRunning = false;
@@ -92,24 +79,7 @@ void Game::handleEvent(SDL_Event& e) {
 }
 
 void Game::update() {
-
-	for (int i = 0; i < enemies.size(); i++)
-	{
-		enemies[i]->update();
-	}
-
-	for (int i = 0; i < enemies.size(); i++)
-	{
-		for (int j = i + 1; j < enemies.size(); j++)
-		{
-			if (CollisionHelper::checkCollision(enemies[i]->collisionRect, enemies[j]->collisionRect))
-			{
-				enemies[i]->changeDirection();
-				enemies[j]->changeDirection();
-			}
-		}
-	}
-
+	level->update();
 	player->update();
 }
 
@@ -117,10 +87,6 @@ void Game::render() {
 	SDL_RenderClear(renderer);
 
 	level->render();
-	for (int i = 0; i < enemies.size(); i++)
-	{
-		enemies[i]->render();
-	}	
 	player->render();
 
 	SDL_RenderPresent(renderer);

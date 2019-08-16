@@ -26,10 +26,6 @@ private:
 	void checkBoundries();
 	void loadTextures();
 	void animate();
-	Level* level;
-
-
-	std::vector<Enemy*> enemies;
 
 public:
 	void init();
@@ -42,5 +38,5 @@ public:
 
 	void setCollisionRect();
 
-	Player(int x, int y, Level* level, std::vector<Enemy*> e);
+	Player(int x, int y);
 };

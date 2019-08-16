@@ -12,11 +12,11 @@
 #include "CollisionHelper.h"
 #include "Level.h"
 
-Enemy::Enemy(Level* l, int posX, int posY) {
-	level = l;
+Enemy::Enemy(int posX, int posY) {
 	positionX = posX;
 	positionY = posY;
 }
+
 
 void Enemy::init() {
 	loadTextures();
@@ -32,9 +32,9 @@ void Enemy::update() {
 
 	if (velocityX != 0)
 	{
-			for (int i = 0; i < level->tiles.size(); i++)
+			for (int i = 0; i < Level::tiles.size(); i++)
 			{
-				if (CollisionHelper::checkCollision(collisionRect, level->tiles[i].collisionRect)) {
+				if (CollisionHelper::checkCollision(collisionRect, Level::tiles[i]->collisionRect)) {
 					changeDirection();
 					break;
 				}
@@ -50,9 +50,9 @@ void Enemy::update() {
 			positionY += 1;
 			setCollisionRect();
 
-			for (int i = 0; i < level->tiles.size(); i++)
+			for (int i = 0; i < Level::tiles.size(); i++)
 			{
-				if (CollisionHelper::checkCollision(collisionRect, level->tiles[i].collisionRect)) {
+				if (CollisionHelper::checkCollision(collisionRect, Level::tiles[i]->collisionRect)) {
 					positionY -= 1;
 					setCollisionRect();
 					break;
@@ -68,9 +68,9 @@ void Enemy::update() {
 			positionY -= 1;
 			setCollisionRect();
 
-			for (int i = 0; i < level->tiles.size(); i++)
+			for (int i = 0; i < Level::tiles.size(); i++)
 			{
-				if (CollisionHelper::checkCollision(collisionRect, level->tiles[i].collisionRect)) {
+				if (CollisionHelper::checkCollision(collisionRect, Level::tiles[i]->collisionRect)) {
 					positionY += 1;
 					setCollisionRect();
 					break;
@@ -79,23 +79,15 @@ void Enemy::update() {
 		}
 	}
 
-	/*positionX += velocityX;
-	positionY += velocityY;
-
-	setCOllisionRect();
-
-	for (int i = 0; i < level->tiles.size(); i++)
+	
+	for (int i = 0; i < Level::enemies.size(); ++i)
 	{
-		if (CollisionHelper::checkCollision(collisionRect, level->tiles[i].collisionRect)) {
-
-			positionX -= velocityX;
-			positionY -= velocityY;
-
-			setCOllisionRect();
-
-			break;
+		if (this != Level::enemies[i] && CollisionHelper::checkCollision(this->collisionRect, Level::enemies[i]->collisionRect))
+		{
+			changeDirection();
 		}
-	}*/
+	}
+	
 
 	checkBoundries();
 
@@ -147,9 +139,9 @@ bool Enemy::isOnGround() {
 	testRect.x = collisionRect->x;
 	testRect.y = collisionRect->y + 1;
 
-	for (int i = 0; i < level->tiles.size(); i++)
+	for (int i = 0; i < Level::tiles.size(); i++)
 	{
-		if (CollisionHelper::checkCollision(&testRect, level->tiles[i].collisionRect)) {
+		if (CollisionHelper::checkCollision(&testRect, Level::tiles[i]->collisionRect)) {
 			return true;
 		}
 	}

@@ -5,7 +5,8 @@
 #include <SDL_image.h>
 #include <string>
 #include <vector>
-#include "Level.h"
+#include "Collider.h"
+#include "GameObject.h"
 
 class Enemy : public GameObject, public Collider {
 
@@ -25,7 +26,6 @@ private:
 	void checkBoundries();
 	void loadTextures();
 	void animate();
-	Level* level;
 public:
 	void init();
 	void handleEvent(SDL_Event& e);
@@ -34,7 +34,7 @@ public:
 
 	void setCollisionRect();
 
-	Enemy(Level* level, int posX, int posY);
+	Enemy(int posX, int posY);
 
 	void changeDirection();
 };

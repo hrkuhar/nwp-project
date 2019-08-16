@@ -12,9 +12,7 @@
 #include "CollisionHelper.h"
 #include "Level.h"
 
-Player::Player(int x, int y, Level* l, std::vector<Enemy*> e) {
-	level = l;
-	enemies = e;
+Player::Player(int x, int y) {
 	positionX = x;
 	positionY = y;
 }
@@ -35,9 +33,9 @@ void Player::update() {
 			positionX += 1;
 			setCollisionRect();
 
-			for (int i = 0; i < level->tiles.size(); i++)
+			for (int i = 0; i < Level::tiles.size(); i++)
 			{
-				if (CollisionHelper::checkCollision(collisionRect, level->tiles[i].collisionRect)) {
+				if (CollisionHelper::checkCollision(collisionRect, Level::tiles[i]->collisionRect)) {
 					positionX -= 1;
 					setCollisionRect();
 					break;
@@ -53,9 +51,9 @@ void Player::update() {
 			positionX -= 1;
 			setCollisionRect();
 
-			for (int i = 0; i < level->tiles.size(); i++)
+			for (int i = 0; i < Level::tiles.size(); i++)
 			{
-				if (CollisionHelper::checkCollision(collisionRect, level->tiles[i].collisionRect)) {
+				if (CollisionHelper::checkCollision(collisionRect, Level::tiles[i]->collisionRect)) {
 					positionX += 1;
 					setCollisionRect();
 					break;
@@ -71,9 +69,9 @@ void Player::update() {
 			positionY += 1;
 			setCollisionRect();
 
-			for (int i = 0; i < level->tiles.size(); i++)
+			for (int i = 0; i < Level::tiles.size(); i++)
 			{
-				if (CollisionHelper::checkCollision(collisionRect, level->tiles[i].collisionRect)) {
+				if (CollisionHelper::checkCollision(collisionRect, Level::tiles[i]->collisionRect)) {
 					positionY -= 1;
 					setCollisionRect();
 					break;
@@ -89,9 +87,9 @@ void Player::update() {
 			positionY -= 1;
 			setCollisionRect();
 
-			for (int i = 0; i < level->tiles.size(); i++)
+			for (int i = 0; i < Level::tiles.size(); i++)
 			{
-				if (CollisionHelper::checkCollision(collisionRect, level->tiles[i].collisionRect)) {
+				if (CollisionHelper::checkCollision(collisionRect, Level::tiles[i]->collisionRect)) {
 					positionY += 1;
 					setCollisionRect();
 					break;
@@ -100,9 +98,9 @@ void Player::update() {
 		}
 	}
 
-	for (int i = 0; i < enemies.size(); i++)
+	for (int i = 0; i < Level::enemies.size(); i++)
 	{
-		if (CollisionHelper::checkCollision(collisionRect, enemies[i]->collisionRect)) {
+		if (CollisionHelper::checkCollision(collisionRect, Level::enemies[i]->collisionRect)) {
 			positionX = 70;
 			positionY = 70;
 		}
@@ -158,9 +156,9 @@ bool Player::isOnGround() {
 	testRect.x = collisionRect->x;
 	testRect.y = collisionRect->y + 1;
 
-	for (int i = 0; i < level->tiles.size(); i++)
+	for (int i = 0; i < Level::tiles.size(); i++)
 	{
-		if (CollisionHelper::checkCollision(&testRect, level->tiles[i].collisionRect)) {
+		if (CollisionHelper::checkCollision(&testRect, Level::tiles[i]->collisionRect)) {
 			return true;
 		}
 	}
