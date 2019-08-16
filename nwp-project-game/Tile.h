@@ -1,9 +1,10 @@
 #pragma once
 
 #include <SDL.h>
-#include<string>
+#include <string>
+#include "Collider.h"
 
-class Tile {
+class Tile : public Collider {
 
 public:
 	SDL_Texture* texture;
@@ -14,5 +15,6 @@ public:
 	int positionX;
 	int positionY;
 
-	SDL_Rect* collisionRect = new SDL_Rect();
+	void setCollisionRect();
+
 };

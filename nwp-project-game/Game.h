@@ -9,8 +9,9 @@ class Game {
 private:
 	SDL_Window* window;
 	SDL_Surface* screenSurface;
-	SDL_Renderer* renderer;
 public:
+	static SDL_Renderer* renderer;
+
 	static const int SCREEN_WIDTH = 1280;
 	static const int SCREEN_HEIGHT = 720;
 

@@ -6,14 +6,14 @@
 #include <string>
 #include "Level.h"
 #include "TextureHelper.h"
+#include "Game.h"
 
-void Level::init(SDL_Renderer* r) {
-	renderer = r;
+void Level::init() {
 	loadTextures();
 }
 
 void Level::loadTextures() {
-	tileTexture = TextureHelper::loadTexture(renderer, "assets/tile_brick.png");
+	tileTexture = TextureHelper::loadTexture(Game::renderer, "assets/tile_brick.png");
 }
 
 void Level::render()
@@ -32,10 +32,7 @@ void Level::render()
 				tile.positionY = i * 64;
 				tile.texture = tileTexture;
 
-				tile.collisionRect->h = tile.height;
-				tile.collisionRect->w = tile.width;
-				tile.collisionRect->x = tile.positionX;
-				tile.collisionRect->y = tile.positionY;
+				tile.setCollisionRect();
 
 				tiles.push_back(tile);
 
@@ -45,7 +42,7 @@ void Level::render()
 				targetRect.w = 64;
 				targetRect.h = 64;
 
-				SDL_RenderCopy(renderer, tileTexture, NULL, &targetRect);
+				SDL_RenderCopy(Game::renderer, tileTexture, NULL, &targetRect);
 			}
 		}
 	}	

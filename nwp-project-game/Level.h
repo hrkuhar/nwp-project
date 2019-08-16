@@ -12,8 +12,6 @@ class Level {
 private:
 	SDL_Texture* tileTexture;
 
-	SDL_Renderer* renderer = NULL;
-
 	void loadTextures();
 
 	int map[12][20] = {
@@ -31,7 +29,7 @@ private:
 		{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}
 	};
 public:
-	void init(SDL_Renderer* renderer);
+	void init();
 	void render();
 	void clear();
 

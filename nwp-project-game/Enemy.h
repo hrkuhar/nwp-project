@@ -7,7 +7,7 @@
 #include <vector>
 #include "Level.h"
 
-class Enemy {
+class Enemy : public Collider {
 
 private:
 	SDL_Texture* currentTexture;
@@ -27,7 +27,6 @@ private:
 
 	int frame = 1;
 
-	SDL_Renderer* renderer = NULL;
 	SDL_RendererFlip flipTextures = SDL_FLIP_NONE;
 
 	bool isOnGround();
@@ -36,15 +35,14 @@ private:
 	void loadTextures();
 	void animate();
 	Level* level;
-	void setCOllisionRect();
 public:
-	void init(SDL_Renderer* renderer);
+	void init();
 	void handleEvent(SDL_Event& e);
 	void update();
 	void render();
 	void clear();
 
-	SDL_Rect* collisionRect;
+	void setCollisionRect();
 
 	Enemy(Level* level, int posX, int posY);
 

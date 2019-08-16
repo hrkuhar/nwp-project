@@ -17,16 +17,9 @@ Player::Player(Level* l, std::vector<Enemy*> e) {
 	enemies = e;
 }
 
-void Player::init(SDL_Renderer* r) {
-	renderer = r;
+void Player::init() {
 	loadTextures();
-
-	collisionRect = new  SDL_Rect();
-
-	collisionRect->w = width / 2;
-	collisionRect->h = height;
-	
-	setCOllisionRect();
+	setCollisionRect();
 }
 
 void Player::update() {
@@ -38,13 +31,13 @@ void Player::update() {
 		for (int x = 0; x < velocityX; x++)
 		{
 			positionX += 1;
-			setCOllisionRect();
+			setCollisionRect();
 
 			for (int i = 0; i < level->tiles.size(); i++)
 			{
 				if (CollisionHelper::checkCollision(collisionRect, level->tiles[i].collisionRect)) {
 					positionX -= 1;
-					setCOllisionRect();
+					setCollisionRect();
 					break;
 				}
 			}
@@ -56,13 +49,13 @@ void Player::update() {
 		for (int x = 0; x > velocityX; x--)
 		{
 			positionX -= 1;
-			setCOllisionRect();
+			setCollisionRect();
 
 			for (int i = 0; i < level->tiles.size(); i++)
 			{
 				if (CollisionHelper::checkCollision(collisionRect, level->tiles[i].collisionRect)) {
 					positionX += 1;
-					setCOllisionRect();
+					setCollisionRect();
 					break;
 				}
 			}
@@ -74,13 +67,13 @@ void Player::update() {
 		for (int y = 0; y < velocityY; y++)
 		{
 			positionY += 1;
-			setCOllisionRect();
+			setCollisionRect();
 
 			for (int i = 0; i < level->tiles.size(); i++)
 			{
 				if (CollisionHelper::checkCollision(collisionRect, level->tiles[i].collisionRect)) {
 					positionY -= 1;
-					setCOllisionRect();
+					setCollisionRect();
 					break;
 				}
 			}
@@ -92,13 +85,13 @@ void Player::update() {
 		for (int y = 0; y > velocityY; y--)
 		{
 			positionY -= 1;
-			setCOllisionRect();
+			setCollisionRect();
 
 			for (int i = 0; i < level->tiles.size(); i++)
 			{
 				if (CollisionHelper::checkCollision(collisionRect, level->tiles[i].collisionRect)) {
 					positionY += 1;
-					setCOllisionRect();
+					setCollisionRect();
 					break;
 				}
 			}
@@ -133,7 +126,7 @@ void Player::update() {
 
 	checkBoundries();
 
-	setCOllisionRect();
+	setCollisionRect();
 }
 
 
@@ -225,11 +218,11 @@ void Player::loadTextures() {
 	for (int i = 0; i < 4; i++)
 	{
 		std::string path = "assets/player_move_right_" + std::to_string(i + 1) + ".png";
-		moveRightTextures[i] = TextureHelper::loadTexture(renderer, path);
+		moveRightTextures[i] = TextureHelper::loadTexture(Game::renderer, path);
 	}
 
-	standingTexture = TextureHelper::loadTexture(renderer, "assets/player_stand.png");
-	jumpingTexture = TextureHelper::loadTexture(renderer, "assets/player_jump.png");
+	standingTexture = TextureHelper::loadTexture(Game::renderer, "assets/player_stand.png");
+	jumpingTexture = TextureHelper::loadTexture(Game::renderer, "assets/player_jump.png");
 }
 
 void Player::animate() {
@@ -255,7 +248,7 @@ void Player::render() {
 	targetRect.w = width;
 	targetRect.h = height;
 
-	SDL_RenderCopyEx(renderer, currentTexture, NULL, &targetRect, NULL, NULL, flipTextures);
+	SDL_RenderCopyEx(Game::renderer, currentTexture, NULL, &targetRect, NULL, NULL, flipTextures);
 
 	++frame;
 }
@@ -275,7 +268,9 @@ void Player::clear()
 	jumpingTexture = NULL;
 }
 
-void Player::setCOllisionRect() {
+void Player::setCollisionRect() {
+	collisionRect->w = width / 2;
+	collisionRect->h = height;
 	collisionRect->x = positionX + width / 4;
 	collisionRect->y = positionY;
 }

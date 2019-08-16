@@ -18,16 +18,9 @@ Enemy::Enemy(Level* l, int posX, int posY) {
 	positionY = posY;
 }
 
-void Enemy::init(SDL_Renderer* r) {
-	renderer = r;
+void Enemy::init() {
 	loadTextures();
-
-	collisionRect = new  SDL_Rect();
-
-	collisionRect->w = width;
-	collisionRect->h = height;
-
-	setCOllisionRect();
+	setCollisionRect();
 }
 
 void Enemy::update() {
@@ -35,7 +28,7 @@ void Enemy::update() {
 	applyGravity();
 
 	positionX += velocityX;
-	setCOllisionRect();
+	setCollisionRect();
 
 	if (velocityX != 0)
 	{
@@ -55,13 +48,13 @@ void Enemy::update() {
 		for (int y = 0; y < velocityY; y++)
 		{
 			positionY += 1;
-			setCOllisionRect();
+			setCollisionRect();
 
 			for (int i = 0; i < level->tiles.size(); i++)
 			{
 				if (CollisionHelper::checkCollision(collisionRect, level->tiles[i].collisionRect)) {
 					positionY -= 1;
-					setCOllisionRect();
+					setCollisionRect();
 					break;
 				}
 			}
@@ -73,13 +66,13 @@ void Enemy::update() {
 		for (int y = 0; y > velocityY; y--)
 		{
 			positionY -= 1;
-			setCOllisionRect();
+			setCollisionRect();
 
 			for (int i = 0; i < level->tiles.size(); i++)
 			{
 				if (CollisionHelper::checkCollision(collisionRect, level->tiles[i].collisionRect)) {
 					positionY += 1;
-					setCOllisionRect();
+					setCollisionRect();
 					break;
 				}
 			}
@@ -106,7 +99,7 @@ void Enemy::update() {
 
 	checkBoundries();
 
-	setCOllisionRect();
+	setCollisionRect();
 }
 
 
@@ -198,10 +191,10 @@ void Enemy::loadTextures() {
 	for (int i = 0; i < 4; i++)
 	{
 		std::string path = "assets/enemy_move_" + std::to_string(i + 1) + ".png";
-		moveRightTextures[i] = TextureHelper::loadTexture(renderer, path);
+		moveRightTextures[i] = TextureHelper::loadTexture(Game::renderer, path);
 	}
 
-	standingTexture = TextureHelper::loadTexture(renderer, "assets/enemy.png");
+	standingTexture = TextureHelper::loadTexture(Game::renderer, "assets/enemy.png");
 }
 
 void Enemy::animate() {
@@ -227,7 +220,7 @@ void Enemy::render() {
 	targetRect.w = width;
 	targetRect.h = height;
 
-	SDL_RenderCopyEx(renderer, currentTexture, NULL, &targetRect, NULL, NULL, flipTextures);
+	SDL_RenderCopyEx(Game::renderer, currentTexture, NULL, &targetRect, NULL, NULL, flipTextures);
 
 	++frame;
 }
@@ -244,7 +237,9 @@ void Enemy::clear()
 	standingTexture = NULL;
 }
 
-void Enemy::setCOllisionRect() {
+void Enemy::setCollisionRect() {
+	collisionRect->w = width;
+	collisionRect->h = height;
 	collisionRect->x = positionX;
 	collisionRect->y = positionY;
 }
@@ -252,6 +247,6 @@ void Enemy::setCOllisionRect() {
 void Enemy::changeDirection() {
 	positionX -= velocityX;
 	velocityX = -velocityX;
-	setCOllisionRect();
+	setCollisionRect();
 	flipTextures = flipTextures == SDL_FLIP_HORIZONTAL ? SDL_FLIP_NONE : SDL_FLIP_HORIZONTAL;
 }

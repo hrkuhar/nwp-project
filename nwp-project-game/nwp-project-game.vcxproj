@@ -137,8 +137,10 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="TextureHelper.cpp" />
+    <ClCompile Include="Tile.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Collider.h" />
     <ClInclude Include="CollisionHelper.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="Game.h" />

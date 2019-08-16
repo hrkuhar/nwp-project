@@ -15,6 +15,7 @@ Player *player = nullptr;
 Level *level = nullptr;
 Enemy *enemy1 = nullptr;
 Enemy *enemy2 = nullptr;
+SDL_Renderer* Game::renderer = nullptr;
 
 
 Game::Game() {
@@ -60,19 +61,19 @@ bool Game::init() {
 	}
 
 	level = new Level();
-	level->init(renderer);
+	level->init();
 
 	enemy1 = new Enemy(level, 150, 150);
-	enemy1->init(renderer);
+	enemy1->init();
 
 	enemy2 = new Enemy(level, 500, 500);
-	enemy2->init(renderer);
+	enemy2->init();
 
 	enemies.push_back(enemy1);
 	enemies.push_back(enemy2);
 
 	player = new Player(level, enemies);
-	player->init(renderer);
+	player->init();
 
 	return success;
 }
