@@ -22,7 +22,7 @@ SDL_Texture* TextureHelper::loadTexture(SDL_Renderer* renderer, std::string path
 }
 
 void TextureHelper::loadTextures() {
-	textures["player_stand"] = loadTexture(Game::renderer, "assets/player_stand.png");
+	textures["player_stationary"] = loadTexture(Game::renderer, "assets/player_stationary.png");
 	textures["player_jump"] = loadTexture(Game::renderer, "assets/player_jump.png");
 	textures["player_move_1"] = loadTexture(Game::renderer, "assets/player_move_1.png");
 	textures["player_move_2"] = loadTexture(Game::renderer, "assets/player_move_2.png");
@@ -34,7 +34,14 @@ void TextureHelper::loadTextures() {
 	textures["enemy_move_3"] = loadTexture(Game::renderer, "assets/enemy_move_3.png");
 	textures["enemy_move_4"] = loadTexture(Game::renderer, "assets/enemy_move_4.png");
 
-	textures["tile_stand"] = loadTexture(Game::renderer, "assets/tile_stand.png");
+	textures["brick_stationary"] = loadTexture(Game::renderer, "assets/brick_stationary.png");
+
+	textures["spike_stationary"] = loadTexture(Game::renderer, "assets/spike_stationary.png");
+
+	textures["level_start_stationary"] = loadTexture(Game::renderer, "assets/level_start_stationary.png");
+
+	textures["level_end_stationary"] = loadTexture(Game::renderer, "assets/level_end_stationary.png");
+
 }
 
 void TextureHelper::clear() {

@@ -34,9 +34,27 @@ void Player::update() {
 			for (int i = 0; i < Level::tiles.size(); i++)
 			{
 				if (CollisionHelper::checkCollision(collisionRect, Level::tiles[i]->collisionRect)) {
-					positionX -= 1;
-					setCollisionRect();
-					break;
+					if (Level::tiles[i]->type == "spike")
+					{
+						positionX = Level::startPosX;
+						positionY = Level::startPosY;
+						setCollisionRect();
+					}
+					else if (Level::tiles[i]->type == "level_start")
+					{
+
+					}
+					else if (Level::tiles[i]->type == "level_end")
+					{
+						printf("LEVEL END");
+					}
+					else
+					{
+						positionX -= 1;
+						setCollisionRect();
+						break;
+					}					
+					
 				}
 			}
 		}
@@ -52,9 +70,27 @@ void Player::update() {
 			for (int i = 0; i < Level::tiles.size(); i++)
 			{
 				if (CollisionHelper::checkCollision(collisionRect, Level::tiles[i]->collisionRect)) {
-					positionX += 1;
-					setCollisionRect();
-					break;
+					if (Level::tiles[i]->type == "spike")
+					{
+						positionX = Level::startPosX;
+						positionY = Level::startPosY;
+						setCollisionRect();
+					}
+					else if (Level::tiles[i]->type == "level_start")
+					{
+						
+					}
+					else if (Level::tiles[i]->type == "level_end")
+					{
+						printf("LEVEL END");
+					}
+					else
+					{
+						positionX += 1;
+						setCollisionRect();
+						break;
+					}					
+					
 				}
 			}
 		}
@@ -70,9 +106,28 @@ void Player::update() {
 			for (int i = 0; i < Level::tiles.size(); i++)
 			{
 				if (CollisionHelper::checkCollision(collisionRect, Level::tiles[i]->collisionRect)) {
-					positionY -= 1;
-					setCollisionRect();
-					break;
+					if (Level::tiles[i]->type == "spike")
+					{
+						positionX = Level::startPosX;
+						positionY = Level::startPosY;
+						setCollisionRect();
+					}
+					else if (Level::tiles[i]->type == "level_start")
+					{
+
+					}
+					else if (Level::tiles[i]->type == "level_end")
+					{
+						printf("LEVEL END");
+
+					}
+					else
+					{
+						positionY -= 1;
+						setCollisionRect();
+						break;
+					}					
+					
 				}
 			}
 		}
@@ -88,9 +143,26 @@ void Player::update() {
 			for (int i = 0; i < Level::tiles.size(); i++)
 			{
 				if (CollisionHelper::checkCollision(collisionRect, Level::tiles[i]->collisionRect)) {
-					positionY += 1;
-					setCollisionRect();
-					break;
+					if (Level::tiles[i]->type == "spike")
+					{
+						positionX = Level::startPosX;
+						positionY = Level::startPosY;
+						setCollisionRect();
+					}
+					else if (Level::tiles[i]->type == "level_start")
+					{
+
+					}
+					else if (Level::tiles[i]->type == "level_end")
+					{
+						printf("LEVEL END");
+					}
+					else
+					{
+						positionY += 1;
+						setCollisionRect();
+						break;
+					}
 				}
 			}
 		}
@@ -99,8 +171,8 @@ void Player::update() {
 	for (int i = 0; i < Level::enemies.size(); i++)
 	{
 		if (CollisionHelper::checkCollision(collisionRect, Level::enemies[i]->collisionRect)) {
-			positionX = 70;
-			positionY = 70;
+			positionX = Level::startPosX;
+			positionY = Level::startPosY;
 		}
 	}
 
@@ -163,4 +235,10 @@ void Player::setCollisionRect() {
 	collisionRect->h = HEIGHT;
 	collisionRect->x = positionX + WIDTH / 4;
 	collisionRect->y = positionY;
+}
+
+void Player::setPosition(int x, int y) {
+	positionX = x;
+	positionY = y;
+	setCollisionRect();
 }

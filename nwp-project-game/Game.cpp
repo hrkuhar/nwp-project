@@ -12,7 +12,7 @@
 #include <vector>
 #include "TextureHelper.h"
 
-Player *player = nullptr;
+Player* Game::player = nullptr;
 Level *level = nullptr;
 SDL_Renderer* Game::renderer = nullptr;
 int Game::frame = 1;
@@ -61,11 +61,11 @@ bool Game::init() {
 
 	TextureHelper::loadTextures();
 
+	player = new Player(64, 64, "player");
+	player->init();
+
 	level = new Level();
 	level->init();
-
-	player = new Player(70, 70, "player");
-	player->init();
 
 	return success;
 }

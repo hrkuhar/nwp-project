@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <vector>
 #include "Enemy.h"
+#include "Player.h"
 
 class Game {
 private:
@@ -12,6 +13,7 @@ private:
 public:
 	static SDL_Renderer* renderer;
 	static int frame;
+	static Player* player;
 
 	static const int SCREEN_WIDTH = 1280;
 	static const int SCREEN_HEIGHT = 720;

@@ -15,6 +15,8 @@ Enemy *enemy1 = nullptr;
 Enemy *enemy2 = nullptr;
 std::vector<Enemy*> Level::enemies;
 std::vector<Tile*> Level::tiles;
+int Level::startPosX;
+int Level::startPosY;
 
 void Level::init() {
 	loadTextures();
@@ -25,21 +27,40 @@ void Level::init() {
 		{
 			if (map[i][j] == 1)
 			{
-				Tile* tile = new Tile(j * 64, i * 64, "tile");
+				Tile* tile = new Tile(j * 64, i * 64, "brick", "brick");
+				tile->setCollisionRect();
+				tiles.push_back(tile);
+			}
+			else if (map[i][j] == 2)
+			{
+				Tile* tile = new Tile(j * 64, i * 64, "spike", "spike");
+				tile->setCollisionRect();
+				tiles.push_back(tile);
+			}
+			else if (map[i][j] == 6)
+			{
+				Enemy* enemy = new Enemy(j * 64, i * 64 - 1, "enemy");
+				enemy->init();
+				enemies.push_back(enemy);
+			}
+			else if (map[i][j] == 5)
+			{
+				startPosX = j * 64;
+				startPosY = i * 64 - 1;
+				Game::player->setPosition(startPosX, startPosY);
+
+				Tile* tile = new Tile(j * 64, i * 64, "level_start", "level_start");
+				tile->setCollisionRect();
+				tiles.push_back(tile);
+			}
+			else if (map[i][j] == 3)
+			{
+				Tile* tile = new Tile(j * 64, i * 64, "level_end", "level_end");
 				tile->setCollisionRect();
 				tiles.push_back(tile);
 			}
 		}
 	}
-
-	enemy1 = new Enemy(150, 150, "enemy");
-	enemy1->init();
-
-	enemy2 = new Enemy(500, 500, "enemy");
-	enemy2->init();
-
-	enemies.push_back(enemy1);
-	enemies.push_back(enemy2);
 }
 
 void Level::loadTextures() {

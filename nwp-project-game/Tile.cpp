@@ -5,8 +5,9 @@
 #include "Tile.h"
 #include "Game.h"
 
-Tile::Tile(int x, int y, std::string ap) : CollidingObject(x, y, ap) {
+Tile::Tile(int x, int y, std::string ap, std::string t) : CollidingObject(x, y, ap) {
 	texture = standingTexture;
+	type = t;
 }
 
 void Tile::setCollisionRect() {

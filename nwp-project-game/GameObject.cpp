@@ -23,5 +23,5 @@ GameObject::GameObject(int x, int y, std::string ap) {
 }
 
 void GameObject::setTextures() {
-	standingTexture = TextureHelper::textures[assetsPrefix + "_stand"];
+	standingTexture = TextureHelper::textures[assetsPrefix + "_stationary"];
 }

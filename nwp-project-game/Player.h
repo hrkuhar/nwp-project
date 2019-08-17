@@ -18,7 +18,7 @@ public:
 	void init();
 	void handleEvent(SDL_Event& e);
 	void update();
-
+	void setPosition(int x, int y);
 	void setCollisionRect();
 
 	Player(int x, int y, std::string ap);

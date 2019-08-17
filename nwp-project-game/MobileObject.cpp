@@ -23,7 +23,7 @@ bool MobileObject::isOnGround() {
 
 	for (int i = 0; i < Level::tiles.size(); i++)
 	{
-		if (CollisionHelper::checkCollision(&testRect, Level::tiles[i]->collisionRect)) {
+		if ((CollisionHelper::checkCollision(&testRect, Level::tiles[i]->collisionRect) && Level::tiles[i]->type == "brick")) {
 			return true;
 		}
 	}
