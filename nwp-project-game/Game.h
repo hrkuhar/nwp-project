@@ -10,6 +10,10 @@ class Game {
 private:
 	SDL_Window* window;
 	SDL_Surface* screenSurface;
+
+	static int map[2][12][20];
+
+	static int currentLevel;
 public:
 	static SDL_Renderer* renderer;
 	static int frame;
@@ -17,6 +21,8 @@ public:
 
 	static const int SCREEN_WIDTH = 1280;
 	static const int SCREEN_HEIGHT = 720;
+
+	static void nextLevel();
 
 	Game();
 	~Game();

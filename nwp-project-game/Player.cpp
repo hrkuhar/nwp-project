@@ -46,7 +46,7 @@ void Player::update() {
 					}
 					else if (Level::tiles[i]->type == "level_end")
 					{
-						printf("LEVEL END");
+						Game::nextLevel();
 					}
 					else
 					{

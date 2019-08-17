@@ -18,8 +18,11 @@ std::vector<Tile*> Level::tiles;
 int Level::startPosX;
 int Level::startPosY;
 
-void Level::init() {
+void Level::init(int map[12][20]) {
 	loadTextures();
+
+	enemies.clear();
+	tiles.clear();
 
 	for (size_t i = 0; i < 12; i++)
 	{
