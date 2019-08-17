@@ -34,6 +34,13 @@ void TextureHelper::loadTextures() {
 	textures["enemy_move_3"] = loadTexture(Game::renderer, "assets/enemy_move_3.png");
 	textures["enemy_move_4"] = loadTexture(Game::renderer, "assets/enemy_move_4.png");
 
+	textures["enemy_bouncer_jump"] = loadTexture(Game::renderer, "assets/enemy_bouncer_jump.png");
+	textures["enemy_bouncer_move_1"] = loadTexture(Game::renderer, "assets/enemy_bouncer_move_1.png");
+	textures["enemy_bouncer_move_2"] = loadTexture(Game::renderer, "assets/enemy_bouncer_move_2.png");
+	textures["enemy_bouncer_move_3"] = loadTexture(Game::renderer, "assets/enemy_bouncer_move_3.png");
+	textures["enemy_bouncer_move_4"] = loadTexture(Game::renderer, "assets/enemy_bouncer_move_4.png");
+
+
 	textures["brick_stationary"] = loadTexture(Game::renderer, "assets/brick_stationary.png");
 
 	textures["spike_stationary"] = loadTexture(Game::renderer, "assets/spike_stationary.png");

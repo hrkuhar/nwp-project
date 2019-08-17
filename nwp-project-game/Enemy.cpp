@@ -12,8 +12,8 @@
 #include "CollisionHelper.h"
 #include "Level.h"
 
-Enemy::Enemy(int x, int y, std::string ap) : MobileObject(x, y, ap, 2, 2, 0) {
-
+Enemy::Enemy(int x, int y, std::string ap, int jump) : MobileObject(x, y, ap, 2, 2, 0) {
+	jumpHeight = jump;
 }
 
 void Enemy::init() {
@@ -38,7 +38,6 @@ void Enemy::update() {
 			}
 		
 	}
-
 
 	if (velocityY > 0)
 	{
@@ -81,8 +80,24 @@ void Enemy::update() {
 	{
 		if (this != Level::enemies[i] && CollisionHelper::checkCollision(this->collisionRect, Level::enemies[i]->collisionRect))
 		{
+			positionX -= velocityX;
+			positionY -= velocityY;
+
+			if (velocityY < 0)
+			{
+				velocityY = 2;
+			}
+			else if (velocityY > 0)
+			{
+				velocityY = -2;
+			}
 			changeDirection();
 		}
+	}
+
+	if (jumpHeight != NULL && jumpHeight != 0 && isOnGround())
+	{
+		velocityY = -velocity * jumpHeight;
 	}
 	
 

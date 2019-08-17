@@ -39,7 +39,13 @@ void Level::init() {
 			}
 			else if (map[i][j] == 6)
 			{
-				Enemy* enemy = new Enemy(j * 64, i * 64 - 1, "enemy");
+				Enemy* enemy = new Enemy(j * 64, i * 64 - 1, "enemy", NULL);
+				enemy->init();
+				enemies.push_back(enemy);
+			}
+			else if (map[i][j] == 7)
+			{
+				Enemy* enemy = new Enemy(j * 64, i * 64 - 1, "enemy_bouncer", 6);
 				enemy->init();
 				enemies.push_back(enemy);
 			}

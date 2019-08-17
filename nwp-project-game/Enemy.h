@@ -12,11 +12,12 @@ class Enemy : public MobileObject {
 
 private:
 	void animate();
+	int jumpHeight;
 public:
 	void init();
 	void update();
 
-	Enemy(int posX, int posY, std::string ap);
+	Enemy(int posX, int posY, std::string ap, int jump);
 
 	void changeDirection();
 };
