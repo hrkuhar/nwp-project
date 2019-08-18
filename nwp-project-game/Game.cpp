@@ -11,12 +11,17 @@
 #include "Enemy.h"
 #include <vector>
 #include "TextureHelper.h"
+#include "Menu.h"
 
 Player* Game::player = nullptr;
-Level *level = nullptr;
+Level* Game::level = nullptr;
+Menu *menu = nullptr;
 SDL_Renderer* Game::renderer = nullptr;
 int Game::frame = 1;
 int Game::currentLevel = 0;
+bool Game::isRunning;
+bool Game::showMenu;
+bool Game::isInProgress;
 int Game::map[3][12][20] = {
 	{
 		{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
@@ -64,6 +69,8 @@ int Game::map[3][12][20] = {
 
 Game::Game() {
 	isRunning = true;
+	showMenu = true;
+	isInProgress = false;
 }
 
 Game::~Game() {
@@ -106,6 +113,9 @@ bool Game::init() {
 
 	TextureHelper::loadTextures();
 
+	menu = new Menu();
+	menu->init();
+
 	player = new Player(64, 64, "player");
 	player->init();
 
@@ -121,20 +131,40 @@ void Game::handleEvent(SDL_Event& e) {
 	}
 	else
 	{
-		player->handleEvent(e);
+		if (showMenu)
+		{
+			menu->handleEvent(e);
+		}
+		else {
+			player->handleEvent(e);
+		}
 	}
 }
 
 void Game::update() {
-	level->update();
-	player->update();
+	if (showMenu)
+	{
+		menu->update();
+	}
+	else
+	{
+		level->update();
+		player->update();
+	}	
 }
 
 void Game::render() {
 	SDL_RenderClear(renderer);
 
-	level->render();
-	player->render();
+	if (showMenu)
+	{
+		menu->render();
+	}
+	else
+	{
+		level->render();
+		player->render();
+	}
 
 	SDL_RenderPresent(renderer);
 	++frame;
@@ -160,4 +190,14 @@ void Game::nextLevel() {
 	}
 	level = new Level();
 	level->init(map[currentLevel++]);
+}
+
+void Game::newGame() {
+	currentLevel = 0;
+	player = new Player(64, 64, "player");
+	player->init();
+
+	nextLevel();
+	isInProgress = true;
+	showMenu = false;
 }

@@ -9,11 +9,6 @@
 #include "Enemy.h"
 
 class Level {
-
-private:
-	SDL_Texture* tileTexture;
-
-	void loadTextures();
 public:
 	void init(int map[12][20]);
 	void update();

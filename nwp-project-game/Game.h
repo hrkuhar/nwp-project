@@ -5,6 +5,7 @@
 #include <vector>
 #include "Enemy.h"
 #include "Player.h"
+#include "Level.h"
 
 class Game {
 private:
@@ -18,15 +19,19 @@ public:
 	static SDL_Renderer* renderer;
 	static int frame;
 	static Player* player;
+	static Level* level;
 
 	static const int SCREEN_WIDTH = 1280;
 	static const int SCREEN_HEIGHT = 720;
 
 	static void nextLevel();
+	static void newGame();
 
 	Game();
 	~Game();
-	bool isRunning;
+	static bool isRunning;
+	static bool showMenu;
+	static bool isInProgress;
 
 	bool init();
 	void update();

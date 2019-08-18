@@ -19,8 +19,6 @@ int Level::startPosX;
 int Level::startPosY;
 
 void Level::init(int map[12][20]) {
-	loadTextures();
-
 	enemies.clear();
 	tiles.clear();
 
@@ -72,10 +70,6 @@ void Level::init(int map[12][20]) {
 	}
 }
 
-void Level::loadTextures() {
-	tileTexture = TextureHelper::loadTexture(Game::renderer, "assets/tile_brick.png");
-}
-
 void Level::update() {
 	for (int i = 0; i < enemies.size(); i++)
 	{
@@ -94,9 +88,4 @@ void Level::render()
 	{
 		enemies[i]->render();
 	}
-}
-
-void Level::clear()
-{
-	SDL_DestroyTexture(tileTexture);
 }

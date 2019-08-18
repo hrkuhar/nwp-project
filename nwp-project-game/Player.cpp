@@ -200,7 +200,12 @@ void Player::handleEvent(SDL_Event& e) {
 			flipTextures = SDL_FLIP_NONE;
 			velocityX += velocity; 
 			break;
+		case SDLK_ESCAPE:
+			velocityX = 0;
+			Game::showMenu = true;
+			break;
 		}
+		
 	}
 	else if (e.type == SDL_KEYUP && e.key.repeat == 0)
 	{
