@@ -39,6 +39,7 @@ void Player::update() {
 						positionX = Level::startPosX;
 						positionY = Level::startPosY;
 						setCollisionRect();
+						Game::lives--;
 					}
 					else if (Level::tiles[i]->type == "level_start")
 					{
@@ -75,6 +76,7 @@ void Player::update() {
 						positionX = Level::startPosX;
 						positionY = Level::startPosY;
 						setCollisionRect();
+						Game::lives--;
 					}
 					else if (Level::tiles[i]->type == "level_start")
 					{
@@ -82,7 +84,7 @@ void Player::update() {
 					}
 					else if (Level::tiles[i]->type == "level_end")
 					{
-						printf("LEVEL END");
+						Game::nextLevel();
 					}
 					else
 					{
@@ -111,6 +113,7 @@ void Player::update() {
 						positionX = Level::startPosX;
 						positionY = Level::startPosY;
 						setCollisionRect();
+						Game::lives--;
 					}
 					else if (Level::tiles[i]->type == "level_start")
 					{
@@ -118,8 +121,7 @@ void Player::update() {
 					}
 					else if (Level::tiles[i]->type == "level_end")
 					{
-						printf("LEVEL END");
-
+						Game::nextLevel();
 					}
 					else
 					{
@@ -148,6 +150,7 @@ void Player::update() {
 						positionX = Level::startPosX;
 						positionY = Level::startPosY;
 						setCollisionRect();
+						Game::lives--;
 					}
 					else if (Level::tiles[i]->type == "level_start")
 					{
@@ -155,7 +158,7 @@ void Player::update() {
 					}
 					else if (Level::tiles[i]->type == "level_end")
 					{
-						printf("LEVEL END");
+						Game::nextLevel();
 					}
 					else
 					{
@@ -173,6 +176,7 @@ void Player::update() {
 		if (CollisionHelper::checkCollision(collisionRect, Level::enemies[i]->collisionRect)) {
 			positionX = Level::startPosX;
 			positionY = Level::startPosY;
+			Game::lives--;
 		}
 	}
 
@@ -202,7 +206,7 @@ void Player::handleEvent(SDL_Event& e) {
 			break;
 		case SDLK_ESCAPE:
 			velocityX = 0;
-			Game::showMenu = true;
+			Game::displayMenu();
 			break;
 		}
 		

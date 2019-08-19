@@ -54,6 +54,8 @@ void TextureHelper::loadTextures() {
 	textures["menu_selector_stationary"] = loadTexture(Game::renderer, "assets/menu_selector_stationary.png");
 	textures["menu_title_stationary"] = loadTexture(Game::renderer, "assets/menu_title_stationary.png");
 	textures["menu_continue_stationary"] = loadTexture(Game::renderer, "assets/menu_continue_stationary.png");
+
+	textures["life_stationary"] = loadTexture(Game::renderer, "assets/life_stationary.png");
 }
 
 void TextureHelper::clear() {

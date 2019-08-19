@@ -10,9 +10,7 @@ private:
 	SDL_Texture* menuTitleTexture;
 	SDL_Texture* menuContinueTexture;
 
-	bool newGameSelected;
-	bool quitSelected;
-	bool continueSelected;
+	
 public:
 	void init();
 	void loadTextures();
@@ -20,4 +18,8 @@ public:
 	void render();
 	void clear();
 	void handleEvent(SDL_Event& e);
+
+	bool newGameSelected;
+	bool quitSelected;
+	bool continueSelected;
 };

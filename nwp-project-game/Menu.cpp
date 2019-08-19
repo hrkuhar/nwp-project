@@ -21,7 +21,12 @@ void Menu::init() {
 }
 
 void Menu::update() {
-
+	if (!Game::isInProgress && continueSelected)
+	{
+		continueSelected = false;
+		newGameSelected = true;
+		quitSelected = false;
+	}
 }
 
 void Menu::render() {

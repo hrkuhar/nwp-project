@@ -10,15 +10,19 @@
 #include <vector>
 #include "CollisionHelper.h"
 #include <iterator>
+#include "StatusBar.h"
 
-Enemy *enemy1 = nullptr;
-Enemy *enemy2 = nullptr;
 std::vector<Enemy*> Level::enemies;
 std::vector<Tile*> Level::tiles;
+StatusBar* statusBar = nullptr;
 int Level::startPosX;
 int Level::startPosY;
 
 void Level::init(int map[12][20]) {
+
+	statusBar = new StatusBar();
+	statusBar->init();
+
 	enemies.clear();
 	tiles.clear();
 
@@ -28,41 +32,41 @@ void Level::init(int map[12][20]) {
 		{
 			if (map[i][j] == 1)
 			{
-				Tile* tile = new Tile(j * 64, i * 64, "brick", "brick");
+				Tile* tile = new Tile(j * 64, (i + 1) * 64, "brick", "brick");
 				tile->setCollisionRect();
 				tiles.push_back(tile);
 			}
 			else if (map[i][j] == 2)
 			{
-				Tile* tile = new Tile(j * 64, i * 64, "spike", "spike");
+				Tile* tile = new Tile(j * 64, (i + 1) * 64, "spike", "spike");
 				tile->setCollisionRect();
 				tiles.push_back(tile);
 			}
 			else if (map[i][j] == 6)
 			{
-				Enemy* enemy = new Enemy(j * 64, i * 64 - 1, "enemy", NULL);
+				Enemy* enemy = new Enemy(j * 64, (i + 1) * 64 - 1, "enemy", NULL);
 				enemy->init();
 				enemies.push_back(enemy);
 			}
 			else if (map[i][j] == 7)
 			{
-				Enemy* enemy = new Enemy(j * 64, i * 64 - 1, "enemy_bouncer", 6);
+				Enemy* enemy = new Enemy(j * 64, (i + 1) * 64 - 1, "enemy_bouncer", 6);
 				enemy->init();
 				enemies.push_back(enemy);
 			}
 			else if (map[i][j] == 5)
 			{
 				startPosX = j * 64;
-				startPosY = i * 64 - 1;
+				startPosY = (i + 1) * 64 - 1;
 				Game::player->setPosition(startPosX, startPosY);
 
-				Tile* tile = new Tile(j * 64, i * 64, "level_start", "level_start");
+				Tile* tile = new Tile(j * 64, (i + 1) * 64, "level_start", "level_start");
 				tile->setCollisionRect();
 				tiles.push_back(tile);
 			}
 			else if (map[i][j] == 3)
 			{
-				Tile* tile = new Tile(j * 64, i * 64, "level_end", "level_end");
+				Tile* tile = new Tile(j * 64, (i + 1) * 64, "level_end", "level_end");
 				tile->setCollisionRect();
 				tiles.push_back(tile);
 			}
@@ -71,6 +75,7 @@ void Level::init(int map[12][20]) {
 }
 
 void Level::update() {
+	statusBar->update();
 	for (int i = 0; i < enemies.size(); i++)
 	{
 		enemies[i]->update();
@@ -79,6 +84,7 @@ void Level::update() {
 
 void Level::render()
 {
+	statusBar->render();
 	for (int i = 0; i < tiles.size(); i++)
 	{
 		tiles[i]->render();

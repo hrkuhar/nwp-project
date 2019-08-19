@@ -19,13 +19,13 @@ Menu *menu = nullptr;
 SDL_Renderer* Game::renderer = nullptr;
 int Game::frame = 1;
 int Game::currentLevel = 0;
+int Game::lives = 3;
 bool Game::isRunning;
 bool Game::showMenu;
 bool Game::isInProgress;
-int Game::map[3][12][20] = {
+int Game::map[3][11][20] = {
 	{
 		{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
-		{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
 		{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
 		{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
 		{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
@@ -40,7 +40,6 @@ int Game::map[3][12][20] = {
 {
 		{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
 		{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-		{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
 		{1, 0, 5, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1},
 		{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1},
 		{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1},
@@ -53,7 +52,6 @@ int Game::map[3][12][20] = {
 },
 {
 		{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
-		{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
 		{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
 		{1, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
 		{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
@@ -142,6 +140,12 @@ void Game::handleEvent(SDL_Event& e) {
 }
 
 void Game::update() {
+	if (lives == 0)
+	{
+		isInProgress = false;
+		showMenu = true;
+	}
+
 	if (showMenu)
 	{
 		menu->update();
@@ -194,10 +198,21 @@ void Game::nextLevel() {
 
 void Game::newGame() {
 	currentLevel = 0;
+	lives = 3;
 	player = new Player(64, 64, "player");
 	player->init();
 
 	nextLevel();
 	isInProgress = true;
 	showMenu = false;
+}
+
+void Game::displayMenu() {
+	showMenu = true;
+	if (isInProgress)
+	{
+		menu->continueSelected = true;
+		menu->newGameSelected = false;
+		menu->quitSelected = false;
+	}
 }
