@@ -6,6 +6,7 @@
 #include "Enemy.h"
 #include "Player.h"
 #include "Level.h"
+#include <SDL_ttf.h>
 
 class Game {
 private:
@@ -14,8 +15,8 @@ private:
 
 	static int map[3][11][20];
 
-	static int currentLevel;
 public:
+	static int currentLevel;
 	static SDL_Renderer* renderer;
 	static int frame;
 	static Player* player;
@@ -23,6 +24,9 @@ public:
 	static int lives;
 	static Uint32 startTime;
 	static Uint32 pauseStartTime;
+	static Uint32 elapsedTime;
+
+	static TTF_Font *font;
 
 	static const int SCREEN_WIDTH = 1280;
 	static const int SCREEN_HEIGHT = 720;
@@ -37,6 +41,7 @@ public:
 	static bool isRunning;
 	static bool showMenu;
 	static bool isInProgress;
+	static bool gameOver;
 
 	bool init();
 	void update();

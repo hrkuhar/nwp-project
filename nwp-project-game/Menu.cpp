@@ -49,6 +49,33 @@ void Menu::render() {
 
 		SDL_RenderCopy(Game::renderer, menuContinueTexture, NULL, &targetRect);
 	}
+	else if (Game::gameOver)
+	{
+		Uint32 minutes;
+		Uint32 seconds;
+
+		minutes = Game::elapsedTime / 60000;
+		Uint32 remainder = Game::elapsedTime % 60000;
+
+		seconds = remainder / 1000;
+
+		targetRect.x = 256;
+		targetRect.y = 256;
+		targetRect.w = 768;
+		targetRect.h = 64;
+
+		std::string message;
+
+		if (Game::currentLevel > 3)
+		{
+			message = "You finished the game!";
+		}
+		else {
+			message = "You reached level " + std::to_string(Game::currentLevel) + "!";
+		}
+
+		SDL_RenderCopy(Game::renderer, TextureHelper::loadFromRenderedText(message +  " Total game time: " + std::to_string(minutes) + " : " + std::to_string(seconds), { 0, 0, 0 }), NULL, &targetRect);
+	}
 
 	targetRect.x = 512;
 	targetRect.y = 384;

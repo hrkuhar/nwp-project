@@ -12,19 +12,24 @@
 #include <vector>
 #include "TextureHelper.h"
 #include "Menu.h"
+#include <SDL_ttf.h>
 
 Player* Game::player = nullptr;
 Level* Game::level = nullptr;
 Menu *menu = nullptr;
 SDL_Renderer* Game::renderer = nullptr;
+TTF_Font* Game::font = nullptr;
+
 int Game::frame = 1;
 int Game::currentLevel = 0;
 int Game::lives = 3;
 Uint32 Game::startTime = 0;
+Uint32 Game::elapsedTime = 0;
 Uint32 Game::pauseStartTime = 0;
 bool Game::isRunning;
 bool Game::showMenu;
 bool Game::isInProgress;
+bool Game::gameOver;
 int Game::map[3][11][20] = {
 	{
 		{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
@@ -71,6 +76,7 @@ Game::Game() {
 	isRunning = true;
 	showMenu = true;
 	isInProgress = false;
+	gameOver = false;
 }
 
 Game::~Game() {
@@ -107,8 +113,20 @@ bool Game::init() {
 				{
 					success = false;
 				}
+
+				if (TTF_Init() == -1)
+				{
+					printf("SDL_ttf could not initialize! SDL_ttf Error: %s\n", TTF_GetError());
+					success = false;
+				}
 			}
 		}
+	}
+
+	font = TTF_OpenFont("assets/main_font.ttf", 28);
+	if (font == NULL)
+	{
+		success = false;
 	}
 
 	TextureHelper::loadTextures();
@@ -146,6 +164,7 @@ void Game::update() {
 	{
 		isInProgress = false;
 		showMenu = true;
+		gameOver = true;
 	}
 
 	if (showMenu)
@@ -161,17 +180,7 @@ void Game::update() {
 	if (isInProgress)
 	{
 		Uint32 currentTime = SDL_GetTicks();
-		Uint32 elapsedTime = currentTime - Game::startTime;
-
-		Uint32 minutes;
-		Uint32 seconds;
-
-		minutes = elapsedTime / 60000;
-		Uint32 remainder = elapsedTime % 60000;
-
-		seconds = remainder / 1000;
-
-		printf("%d minutes, %d seconds\n", minutes, seconds);
+		elapsedTime = currentTime - Game::startTime;
 	}
 }
 
@@ -208,7 +217,9 @@ void Game::clear() {
 void Game::nextLevel() {
 	if (currentLevel > 2)
 	{
-		return;
+		isInProgress = false;
+		showMenu = true;
+		gameOver = true;
 	}
 	level = new Level();
 	level->init(map[currentLevel++]);
@@ -223,6 +234,7 @@ void Game::newGame() {
 	nextLevel();
 	isInProgress = true;
 	showMenu = false;
+	gameOver = false;
 
 	startTime = SDL_GetTicks();
 	pauseStartTime = 0;

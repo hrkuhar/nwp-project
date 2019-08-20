@@ -21,6 +21,20 @@ SDL_Texture* TextureHelper::loadTexture(SDL_Renderer* renderer, std::string path
 	return newTexture;
 }
 
+SDL_Texture* TextureHelper::loadFromRenderedText(std::string textureText, SDL_Color textColor)
+{
+	SDL_Texture* newTexture = NULL;
+
+	SDL_Surface* textSurface = TTF_RenderText_Solid(Game::font, textureText.c_str(), textColor);
+	if (textSurface != NULL)
+	{
+		newTexture = SDL_CreateTextureFromSurface(Game::renderer, textSurface);
+
+	}
+	return newTexture;
+}
+
+
 void TextureHelper::loadTextures() {
 	textures["player_stationary"] = loadTexture(Game::renderer, "assets/player_stationary.png");
 	textures["player_jump"] = loadTexture(Game::renderer, "assets/player_jump.png");

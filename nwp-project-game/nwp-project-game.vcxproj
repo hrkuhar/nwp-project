@@ -70,8 +70,8 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>..\sdl\SDL2_image-2.0.5\include;..\sdl\SDL2-2.0.10\include;$(IncludePath)</IncludePath>
-    <LibraryPath>..\sdl\SDL2_image-2.0.5\lib\x86;..\sdl\SDL2-2.0.10\lib\x86;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\Users\hrvojek\Desktop\NWP projekt\nwp-project\sdl\SDL2_ttf-2.0.15\include;..\sdl\SDL2_image-2.0.5\include;..\sdl\SDL2-2.0.10\include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Users\hrvojek\Desktop\NWP projekt\nwp-project\sdl\SDL2_ttf-2.0.15\lib\x86;..\sdl\SDL2_image-2.0.5\lib\x86;..\sdl\SDL2-2.0.10\lib\x86;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <IncludePath>..\sdl\SDL2_image-2.0.5\include;..\sdl\SDL2-2.0.10\include;$(IncludePath)</IncludePath>
@@ -85,7 +85,7 @@
       <ConformanceMode>true</ConformanceMode>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;SDL2_ttf.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <SubSystem>Console</SubSystem>
     </Link>
   </ItemDefinitionGroup>
