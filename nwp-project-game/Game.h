@@ -21,12 +21,15 @@ public:
 	static Player* player;
 	static Level* level;
 	static int lives;
+	static Uint32 startTime;
+	static Uint32 pauseStartTime;
 
 	static const int SCREEN_WIDTH = 1280;
 	static const int SCREEN_HEIGHT = 720;
 
 	static void nextLevel();
 	static void newGame();
+	static void resume();
 	static void displayMenu();
 
 	Game();

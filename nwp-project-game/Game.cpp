@@ -20,6 +20,8 @@ SDL_Renderer* Game::renderer = nullptr;
 int Game::frame = 1;
 int Game::currentLevel = 0;
 int Game::lives = 3;
+Uint32 Game::startTime = 0;
+Uint32 Game::pauseStartTime = 0;
 bool Game::isRunning;
 bool Game::showMenu;
 bool Game::isInProgress;
@@ -154,7 +156,23 @@ void Game::update() {
 	{
 		level->update();
 		player->update();
-	}	
+	}
+
+	if (isInProgress)
+	{
+		Uint32 currentTime = SDL_GetTicks();
+		Uint32 elapsedTime = currentTime - Game::startTime;
+
+		Uint32 minutes;
+		Uint32 seconds;
+
+		minutes = elapsedTime / 60000;
+		Uint32 remainder = elapsedTime % 60000;
+
+		seconds = remainder / 1000;
+
+		printf("%d minutes, %d seconds\n", minutes, seconds);
+	}
 }
 
 void Game::render() {
@@ -205,6 +223,15 @@ void Game::newGame() {
 	nextLevel();
 	isInProgress = true;
 	showMenu = false;
+
+	startTime = SDL_GetTicks();
+	pauseStartTime = 0;
+}
+
+void Game::resume() {
+	showMenu = false;
+	startTime += (SDL_GetTicks() - pauseStartTime);
+	pauseStartTime = 0;
 }
 
 void Game::displayMenu() {
@@ -214,5 +241,7 @@ void Game::displayMenu() {
 		menu->continueSelected = true;
 		menu->newGameSelected = false;
 		menu->quitSelected = false;
+
+		pauseStartTime = SDL_GetTicks();
 	}
 }

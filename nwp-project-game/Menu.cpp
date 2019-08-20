@@ -120,7 +120,7 @@ void Menu::handleEvent(SDL_Event& e) {
 		case SDLK_RETURN:
 			if (continueSelected)
 			{
-				Game::showMenu = false;
+				Game::resume();
 			}
 			else if (newGameSelected)
 			{
