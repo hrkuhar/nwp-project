@@ -18,6 +18,16 @@ StatusBar* statusBar = nullptr;
 int Level::startPosX;
 int Level::startPosY;
 
+enum Tiles {
+	BLANK,
+	BRICK,
+	SPIKES,
+	LEVEL_START,
+	LEVEL_END,
+	ENEMY_BASIC,
+	ENEMY_BOUNCER
+};
+
 void Level::init(int map[12][20]) {
 
 	statusBar = new StatusBar();
@@ -30,31 +40,19 @@ void Level::init(int map[12][20]) {
 	{
 		for (size_t j = 0; j < 20; j++)
 		{
-			if (map[i][j] == 1)
+			if (map[i][j] == BRICK)
 			{
 				Tile* tile = new Tile(j * 64, (i + 1) * 64, "brick", "brick");
 				tile->setCollisionRect();
 				tiles.push_back(tile);
 			}
-			else if (map[i][j] == 2)
+			else if (map[i][j] == SPIKES)
 			{
 				Tile* tile = new Tile(j * 64, (i + 1) * 64, "spike", "spike");
 				tile->setCollisionRect();
 				tiles.push_back(tile);
 			}
-			else if (map[i][j] == 6)
-			{
-				Enemy* enemy = new Enemy(j * 64, (i + 1) * 64, "enemy", NULL);
-				enemy->init();
-				enemies.push_back(enemy);
-			}
-			else if (map[i][j] == 7)
-			{
-				Enemy* enemy = new Enemy(j * 64, (i + 1) * 64, "enemy_bouncer", 6);
-				enemy->init();
-				enemies.push_back(enemy);
-			}
-			else if (map[i][j] == 5)
+			else if (map[i][j] == LEVEL_START)
 			{
 				startPosX = j * 64;
 				startPosY = (i + 1) * 64;
@@ -64,12 +62,24 @@ void Level::init(int map[12][20]) {
 				tile->setCollisionRect();
 				tiles.push_back(tile);
 			}
-			else if (map[i][j] == 3)
+			else if (map[i][j] == LEVEL_END)
 			{
 				Tile* tile = new Tile(j * 64, (i + 1) * 64, "level_end", "level_end");
 				tile->setCollisionRect();
 				tiles.push_back(tile);
 			}
+			else if (map[i][j] == ENEMY_BASIC)
+			{
+				Enemy* enemy = new Enemy(j * 64, (i + 1) * 64, "enemy", NULL);
+				enemy->init();
+				enemies.push_back(enemy);
+			}
+			else if (map[i][j] == ENEMY_BOUNCER)
+			{
+				Enemy* enemy = new Enemy(j * 64, (i + 1) * 64, "enemy_bouncer", 6);
+				enemy->init();
+				enemies.push_back(enemy);
+			}	
 		}
 	}
 }

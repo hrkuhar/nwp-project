@@ -180,6 +180,11 @@ void Player::update() {
 		}
 	}
 
+	if (isTouchingCeiling() && velocityY < 0)
+	{
+		velocityY = 0;
+	}
+
 	checkBoundries();
 	setCollisionRect();
 	animate();
@@ -191,7 +196,7 @@ void Player::handleEvent(SDL_Event& e) {
 		switch (e.key.keysym.sym)
 		{
 		case SDLK_UP:
-			if (isOnGround())
+			if (isOnGround() && velocityY >= 0)
 			{
 				velocityY -= velocity * 4;
 			}

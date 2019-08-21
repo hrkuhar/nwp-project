@@ -74,7 +74,27 @@ void Menu::render() {
 			message = "You reached level " + std::to_string(Game::currentLevel) + "!";
 		}
 
-		SDL_Texture* texture = TextureHelper::loadFromRenderedText(message + " Total game time: " + std::to_string(minutes) + " : " + std::to_string(seconds), { 0, 0, 0 });
+		std::string minutesStr;
+		if (minutes <= 9)
+		{
+			minutesStr = "0" + std::to_string(minutes);
+		}
+		else
+		{
+			minutesStr = std::to_string(minutes);
+		}
+
+		std::string secondsStr;
+		if (seconds <= 9)
+		{
+			secondsStr = "0" + std::to_string(seconds);
+		}
+		else
+		{
+			secondsStr = std::to_string(seconds);
+		}
+
+		SDL_Texture* texture = TextureHelper::loadFromRenderedText(message + " Total game time: " + minutesStr + ":" + secondsStr, { 0, 0, 0 });
 		SDL_RenderCopy(Game::renderer, texture , NULL, &targetRect);
 		SDL_DestroyTexture(texture);
 	}

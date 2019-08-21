@@ -10,6 +10,7 @@ protected:
 	int velocityX;
 	int velocityY;
 	bool isOnGround();
+	bool isTouchingCeiling();
 	void applyGravity();
 	void checkBoundries();
 	SDL_Texture* jumpingTexture;

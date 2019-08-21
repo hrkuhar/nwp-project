@@ -30,6 +30,22 @@ bool MobileObject::isOnGround() {
 	return false;
 }
 
+bool MobileObject::isTouchingCeiling() {
+	SDL_Rect testRect;
+	testRect.h = collisionRect->h;
+	testRect.w = collisionRect->w;
+	testRect.x = collisionRect->x;
+	testRect.y = collisionRect->y - 1;
+
+	for (int i = 0; i < Level::tiles.size(); i++)
+	{
+		if ((CollisionHelper::checkCollision(&testRect, Level::tiles[i]->collisionRect) && Level::tiles[i]->type == "brick")) {
+			return true;
+		}
+	}
+	return false;
+}
+
 void MobileObject::applyGravity() {
 	if (!isOnGround())
 	{

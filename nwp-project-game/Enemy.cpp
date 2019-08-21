@@ -99,7 +99,11 @@ void Enemy::update() {
 	{
 		velocityY = -velocity * jumpHeight;
 	}
-	
+
+	if (isTouchingCeiling() && velocityY < 0)
+	{
+		velocityY = 0;
+	}
 
 	checkBoundries();
 
