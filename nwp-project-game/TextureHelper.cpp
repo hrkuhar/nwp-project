@@ -64,11 +64,11 @@ void TextureHelper::loadTextures() {
 
 	textures["level_end_stationary"] = loadTexture(Game::renderer, "assets/level_end_stationary.png");
 
-	textures["menu_new_game_stationary"] = loadTexture(Game::renderer, "assets/menu_new_game_stationary.png");
-	textures["menu_quit_stationary"] = loadTexture(Game::renderer, "assets/menu_quit_stationary.png");
-	textures["menu_selector_stationary"] = loadTexture(Game::renderer, "assets/menu_selector_stationary.png");
-	textures["menu_title_stationary"] = loadTexture(Game::renderer, "assets/menu_title_stationary.png");
-	textures["menu_continue_stationary"] = loadTexture(Game::renderer, "assets/menu_continue_stationary.png");
+	textures["menu_new_game_stationary"] = loadFromRenderedText("New Game", { 0, 0, 0 });
+	textures["menu_quit_stationary"] = loadFromRenderedText("Quit", { 0, 0, 0 });
+	textures["menu_selector_stationary"] = loadFromRenderedText("*", { 0, 0, 0 });
+	textures["menu_title_stationary"] = loadFromRenderedText("NWP Game", { 0, 0, 0 });
+	textures["menu_continue_stationary"] = loadFromRenderedText("Continue", { 0, 0, 0 });
 
 	textures["life_stationary"] = loadTexture(Game::renderer, "assets/life_stationary.png");
 }
