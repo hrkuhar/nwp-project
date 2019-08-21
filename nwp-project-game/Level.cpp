@@ -44,20 +44,20 @@ void Level::init(int map[12][20]) {
 			}
 			else if (map[i][j] == 6)
 			{
-				Enemy* enemy = new Enemy(j * 64, (i + 1) * 64 - 1, "enemy", NULL);
+				Enemy* enemy = new Enemy(j * 64, (i + 1) * 64, "enemy", NULL);
 				enemy->init();
 				enemies.push_back(enemy);
 			}
 			else if (map[i][j] == 7)
 			{
-				Enemy* enemy = new Enemy(j * 64, (i + 1) * 64 - 1, "enemy_bouncer", 6);
+				Enemy* enemy = new Enemy(j * 64, (i + 1) * 64, "enemy_bouncer", 6);
 				enemy->init();
 				enemies.push_back(enemy);
 			}
 			else if (map[i][j] == 5)
 			{
 				startPosX = j * 64;
-				startPosY = (i + 1) * 64 - 1;
+				startPosY = (i + 1) * 64;
 				Game::player->setPosition(startPosX, startPosY);
 
 				Tile* tile = new Tile(j * 64, (i + 1) * 64, "level_start", "level_start");
