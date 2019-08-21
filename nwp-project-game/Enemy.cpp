@@ -85,11 +85,11 @@ void Enemy::update() {
 
 			if (velocityY < 0)
 			{
-				velocityY = 2;
+				velocityY = jumpHeight / 2;
 			}
 			else if (velocityY > 0)
 			{
-				velocityY = -2;
+				velocityY = -jumpHeight / 2;
 			}
 			changeDirection();
 		}

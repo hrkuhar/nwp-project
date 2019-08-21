@@ -9,7 +9,7 @@ protected:
 	int velocity;
 	int velocityX;
 	int velocityY;
-	bool isOnGround();
+	virtual bool isOnGround();
 	bool isTouchingCeiling();
 	void applyGravity();
 	void checkBoundries();

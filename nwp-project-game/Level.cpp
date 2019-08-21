@@ -25,7 +25,9 @@ enum Tiles {
 	LEVEL_START,
 	LEVEL_END,
 	ENEMY_BASIC,
-	ENEMY_BOUNCER
+	ENEMY_BOUNCER_HEAVY,
+	ENEMY_BOUNCER_MEDIUM,
+	ENEMY_BOUNCER_LIGHT
 };
 
 void Level::init(int map[12][20]) {
@@ -74,12 +76,24 @@ void Level::init(int map[12][20]) {
 				enemy->init();
 				enemies.push_back(enemy);
 			}
-			else if (map[i][j] == ENEMY_BOUNCER)
+			else if (map[i][j] == ENEMY_BOUNCER_HEAVY)
 			{
 				Enemy* enemy = new Enemy(j * 64, (i + 1) * 64, "enemy_bouncer", 6);
 				enemy->init();
 				enemies.push_back(enemy);
-			}	
+			}
+			else if (map[i][j] == ENEMY_BOUNCER_MEDIUM)
+			{
+				Enemy* enemy = new Enemy(j * 64, (i + 1) * 64, "enemy_bouncer", 8);
+				enemy->init();
+				enemies.push_back(enemy);
+			}
+			else if (map[i][j] == ENEMY_BOUNCER_LIGHT)
+			{
+				Enemy* enemy = new Enemy(j * 64, (i + 1) * 64, "enemy_bouncer", 10);
+				enemy->init();
+				enemies.push_back(enemy);
+			}
 		}
 	}
 }

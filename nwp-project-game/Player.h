@@ -20,6 +20,7 @@ public:
 	void update();
 	void setPosition(int x, int y);
 	void setCollisionRect();
+	bool isOnGround();
 
 	Player(int x, int y, std::string ap);
 };

@@ -198,7 +198,7 @@ void Player::handleEvent(SDL_Event& e) {
 		case SDLK_UP:
 			if (isOnGround() && velocityY >= 0)
 			{
-				velocityY -= velocity * 4;
+				velocityY -= velocity * 5;
 			}
 			break;
 		case SDLK_LEFT:
@@ -255,4 +255,20 @@ void Player::setPosition(int x, int y) {
 	positionX = x;
 	positionY = y;
 	setCollisionRect();
+}
+
+bool Player::isOnGround() {
+	SDL_Rect testRect;
+	testRect.h = collisionRect->h;
+	testRect.w = collisionRect->w;
+	testRect.x = collisionRect->x;
+	testRect.y = collisionRect->y + 1;
+
+	for (int i = 0; i < Level::tiles.size(); i++)
+	{
+		if ((CollisionHelper::checkCollision(&testRect, Level::tiles[i]->collisionRect) && Level::tiles[i]->type == "brick")) {
+			return true;
+		}
+	}
+	return false;
 }

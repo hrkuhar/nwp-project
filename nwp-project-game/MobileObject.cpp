@@ -23,7 +23,7 @@ bool MobileObject::isOnGround() {
 
 	for (int i = 0; i < Level::tiles.size(); i++)
 	{
-		if ((CollisionHelper::checkCollision(&testRect, Level::tiles[i]->collisionRect) && Level::tiles[i]->type == "brick")) {
+		if ((CollisionHelper::checkCollision(&testRect, Level::tiles[i]->collisionRect))) {
 			return true;
 		}
 	}
@@ -49,9 +49,9 @@ bool MobileObject::isTouchingCeiling() {
 void MobileObject::applyGravity() {
 	if (!isOnGround())
 	{
-		if (velocityY < velocity * 2 && Game::frame % 3 == 0)
+		if (velocityY < velocity * 2)
 		{
-			velocityY += velocity / 2;
+			velocityY += 1;
 		}
 	}
 	else
