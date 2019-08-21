@@ -9,6 +9,9 @@
 #include "Enemy.h"
 
 class Level {
+private:
+	void clearTiles();
+	void clearEnemies();
 public:
 	void init(int map[12][20]);
 	void update();

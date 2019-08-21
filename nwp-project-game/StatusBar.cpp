@@ -38,8 +38,9 @@ void StatusBar::render() {
 	targetRect.w = 256;
 	targetRect.h = 64;
 
-	SDL_RenderCopy(Game::renderer, TextureHelper::loadFromRenderedText("Level " + std::to_string(Game::currentLevel), { 0, 0, 0 }), NULL, &targetRect);
-
+	SDL_Texture* texture = TextureHelper::loadFromRenderedText("Level " + std::to_string(Game::currentLevel), { 0, 0, 0 });
+	SDL_RenderCopy(Game::renderer, texture , NULL, &targetRect);
+	SDL_DestroyTexture(texture);
 
 	Uint32 minutes;
 	Uint32 seconds;
@@ -54,7 +55,9 @@ void StatusBar::render() {
 	targetRect.w = 192;
 	targetRect.h = 64;
 
-	SDL_RenderCopy(Game::renderer, TextureHelper::loadFromRenderedText(std::to_string(minutes) + " : " + std::to_string(seconds), { 0, 0, 0 }), NULL, &targetRect);
+	texture = TextureHelper::loadFromRenderedText(std::to_string(minutes) + " : " + std::to_string(seconds), { 0, 0, 0 });
+	SDL_RenderCopy(Game::renderer, texture , NULL, &targetRect);
+	SDL_DestroyTexture(texture);
 }
 
 void StatusBar::clear() {

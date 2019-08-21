@@ -204,6 +204,11 @@ void Game::render() {
 void Game::clear() {
 	TextureHelper::clear();
 
+	delete player;
+	player = NULL;
+	delete menu;
+	menu = NULL;
+
 	SDL_DestroyWindow(window);
 	window = NULL;
 
@@ -221,6 +226,10 @@ void Game::nextLevel() {
 		showMenu = true;
 		gameOver = true;
 	}
+
+	level->clear();
+	delete level;
+
 	level = new Level();
 	level->init(map[currentLevel++]);
 }
@@ -228,6 +237,7 @@ void Game::nextLevel() {
 void Game::newGame() {
 	currentLevel = 0;
 	lives = 3;
+	delete player;
 	player = new Player(64, 64, "player");
 	player->init();
 

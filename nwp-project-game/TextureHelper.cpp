@@ -6,6 +6,7 @@
 #include "TextureHelper.h"
 #include "Game.h"
 #include <map>
+#include <iterator>
 
 std::map<std::string, SDL_Texture*> TextureHelper::textures;
 
@@ -73,5 +74,9 @@ void TextureHelper::loadTextures() {
 }
 
 void TextureHelper::clear() {
-	//ToDo
+	std::map<std::string, SDL_Texture*>::iterator it;
+	for (it = textures.begin(); it != textures.end(); it++)
+	{
+		SDL_DestroyTexture(it->second);
+	}
 }
