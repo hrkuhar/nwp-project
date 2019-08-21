@@ -59,9 +59,9 @@ void Menu::render() {
 
 		seconds = remainder / 1000;
 
-		targetRect.x = 256;
+		targetRect.x = 128;
 		targetRect.y = 256;
-		targetRect.w = 768;
+		targetRect.w = 1024;
 		targetRect.h = 64;
 
 		std::string message;

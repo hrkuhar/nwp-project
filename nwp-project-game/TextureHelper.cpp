@@ -66,7 +66,7 @@ void TextureHelper::loadTextures() {
 
 	textures["menu_new_game_stationary"] = loadFromRenderedText("New Game", { 0, 0, 0 });
 	textures["menu_quit_stationary"] = loadFromRenderedText("Quit", { 0, 0, 0 });
-	textures["menu_selector_stationary"] = loadFromRenderedText("*", { 0, 0, 0 });
+	textures["menu_selector_stationary"] = loadTexture(Game::renderer, "assets/menu_selector_stationary.png");
 	textures["menu_title_stationary"] = loadFromRenderedText("NWP Game", { 0, 0, 0 });
 	textures["menu_continue_stationary"] = loadFromRenderedText("Continue", { 0, 0, 0 });
 
