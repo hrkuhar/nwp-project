@@ -13,7 +13,7 @@ private:
 	SDL_Window* window;
 	SDL_Surface* screenSurface;
 
-	static int map[3][11][20];
+	static int map[8][11][20];
 
 public:
 	static int currentLevel;
