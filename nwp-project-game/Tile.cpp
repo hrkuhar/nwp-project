@@ -1,9 +1,6 @@
 #pragma once
 
-#include <SDL.h>
-#include "CollidingObject.h"
 #include "Tile.h"
-#include "Game.h"
 
 Tile::Tile(int x, int y, std::string ap, std::string t) : CollidingObject(x, y, ap) {
 	texture = standingTexture;

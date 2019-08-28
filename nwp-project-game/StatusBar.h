@@ -1,7 +1,5 @@
 #pragma once
 
-#include <SDL.h>
-
 class StatusBar {
 private:
 	SDL_Texture* lifeTexture;

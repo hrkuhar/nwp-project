@@ -1,14 +1,7 @@
 #pragma once
 
-#include <SDL.h>
-#include <stdio.h>
-#include <SDL_image.h>
-#include <string>
 #include "Enemy.h"
 #include "Game.h"
-#include "TextureHelper.h"
-#include <vector>
-#include "Tile.h"
 #include "CollisionHelper.h"
 #include "Level.h"
 

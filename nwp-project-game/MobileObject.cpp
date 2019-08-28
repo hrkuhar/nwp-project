@@ -5,7 +5,6 @@
 #include "CollisionHelper.h"
 #include "Game.h"
 #include "TextureHelper.h"
-#include <string>
 
 MobileObject::MobileObject(int x, int y, std::string ap, int vel, int velX, int velY) : CollidingObject(x, y, ap) {
 	velocity = vel;

@@ -1,12 +1,9 @@
 #pragma once
 
 #include <SDL.h>
-#include <string>
 #include <SDL_image.h>
 #include "TextureHelper.h"
 #include "Game.h"
-#include <map>
-#include <iterator>
 
 std::map<std::string, SDL_Texture*> TextureHelper::textures;
 

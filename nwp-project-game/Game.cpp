@@ -1,18 +1,10 @@
 #pragma once
 
-#include <SDL.h>
-#include <stdio.h>
 #include <SDL_image.h>
-#include <string>
 #include "Game.h"
 #include "Player.h"
-#include "CollisionHelper.h"
-#include "Level.h"
-#include "Enemy.h"
-#include <vector>
 #include "TextureHelper.h"
 #include "Menu.h"
-#include <SDL_ttf.h>
 
 Player* Game::player = nullptr;
 Level* Game::level = nullptr;

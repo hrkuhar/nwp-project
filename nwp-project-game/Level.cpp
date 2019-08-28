@@ -1,15 +1,7 @@
 #pragma once
 
-#include <SDL.h>
-#include <stdio.h>
-#include <SDL_image.h>
-#include <string>
 #include "Level.h"
-#include "TextureHelper.h"
 #include "Game.h"
-#include <vector>
-#include "CollisionHelper.h"
-#include <iterator>
 #include "StatusBar.h"
 
 std::vector<Enemy*> Level::enemies;

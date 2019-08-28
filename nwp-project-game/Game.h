@@ -1,9 +1,6 @@
 #pragma once
 
-#include <SDL.h>
-#include <stdio.h>
 #include <vector>
-#include "Enemy.h"
 #include "Player.h"
 #include "Level.h"
 #include <SDL_ttf.h>

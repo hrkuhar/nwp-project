@@ -1,8 +1,6 @@
 #pragma once
 
-#include <SDL.h>
 #include "CollidingObject.h"
-#include <string>
 
 class MobileObject : public CollidingObject {
 protected:

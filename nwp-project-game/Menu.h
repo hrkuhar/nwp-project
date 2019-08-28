@@ -1,7 +1,5 @@
 #pragma once
 
-#include <SDL.h>
-
 class Menu {
 private:
 	SDL_Texture* newGameTexture;

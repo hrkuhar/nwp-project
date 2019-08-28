@@ -1,12 +1,6 @@
 #pragma once
 
-#include <SDL.h>
-#include <stdio.h>
-#include <SDL_image.h>
-#include <string>
-#include <vector>
 #include "MobileObject.h"
-#include "GameObject.h"
 
 class Enemy : public MobileObject {
 

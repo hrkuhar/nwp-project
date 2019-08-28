@@ -1,6 +1,5 @@
 #pragma once
 
-#include <SDL.h>
 #include "CollisionHelper.h"
 
 bool CollisionHelper::checkCollision(SDL_Rect *rectA, SDL_Rect *rectB)
