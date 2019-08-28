@@ -5,13 +5,13 @@
 class Enemy : public MobileObject {
 
 private:
-	void animate();
 	int jumpHeight;
-public:
-	void init();
-	void update();
 
+	void animate();
+	void changeDirection();
+public:
 	Enemy(int posX, int posY, std::string ap, int jump);
 
-	void changeDirection();
+	void init();
+	void update();
 };

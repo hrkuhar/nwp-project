@@ -66,7 +66,7 @@ void Menu::render() {
 
 		std::string message;
 
-		if (Game::currentLevel > 3)
+		if (Game::currentLevel > Game::LEVEL_COUNT)
 		{
 			message = "You finished the game!";
 		}

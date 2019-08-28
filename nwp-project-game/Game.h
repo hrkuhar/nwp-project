@@ -9,36 +9,37 @@ class Game {
 private:
 	SDL_Window* window;
 	SDL_Surface* screenSurface;
-
-	static int map[8][11][20];
-
 public:
-	static int currentLevel;
+	Game();
+	~Game();
+	static const int SCREEN_WIDTH = 1280;
+	static const int SCREEN_HEIGHT = 720;
+	static const int LEVEL_COUNT = 8;
+
+	static int map[LEVEL_COUNT][11][20];
+
 	static SDL_Renderer* renderer;
-	static int frame;
+	static TTF_Font *font;
 	static Player* player;
 	static Level* level;
+
+	static int currentLevel;
 	static int lives;
+
+	static int frame;
 	static Uint32 startTime;
 	static Uint32 pauseStartTime;
 	static Uint32 elapsedTime;
 
-	static TTF_Font *font;
-
-	static const int SCREEN_WIDTH = 1280;
-	static const int SCREEN_HEIGHT = 720;
+	static bool isRunning;
+	static bool showMenu;
+	static bool isInProgress;
+	static bool gameOver;
 
 	static void nextLevel();
 	static void newGame();
 	static void resume();
 	static void displayMenu();
-
-	Game();
-	~Game();
-	static bool isRunning;
-	static bool showMenu;
-	static bool isInProgress;
-	static bool gameOver;
 
 	bool init();
 	void update();
