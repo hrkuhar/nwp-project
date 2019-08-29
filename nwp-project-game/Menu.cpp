@@ -1,9 +1,8 @@
-#pragma once
-
 #include <SDL.h>
 #include "Menu.h"
 #include "TextureHelper.h"
 #include "Game.h"
+#include "TimeHelper.h"
 
 void Menu::loadTextures() {
 	newGameTexture = TextureHelper::textures["menu_new_game_stationary"];
@@ -50,14 +49,6 @@ void Menu::render() {
 	}
 	else if (Game::gameOver)
 	{
-		Uint32 minutes;
-		Uint32 seconds;
-
-		minutes = Game::elapsedTime / 60000;
-		Uint32 remainder = Game::elapsedTime % 60000;
-
-		seconds = remainder / 1000;
-
 		targetRect.x = 128;
 		targetRect.y = 256;
 		targetRect.w = 1024;
@@ -73,27 +64,7 @@ void Menu::render() {
 			message = "You reached level " + std::to_string(Game::currentLevel) + "!";
 		}
 
-		std::string minutesStr;
-		if (minutes <= 9)
-		{
-			minutesStr = "0" + std::to_string(minutes);
-		}
-		else
-		{
-			minutesStr = std::to_string(minutes);
-		}
-
-		std::string secondsStr;
-		if (seconds <= 9)
-		{
-			secondsStr = "0" + std::to_string(seconds);
-		}
-		else
-		{
-			secondsStr = std::to_string(seconds);
-		}
-
-		SDL_Texture* texture = TextureHelper::loadFromRenderedText(message + " Total game time: " + minutesStr + ":" + secondsStr, { 0, 0, 0 });
+		SDL_Texture* texture = TextureHelper::loadFromRenderedText(message + " Total game time: " + TimeHelper::millisToString(Game::elapsedTime), { 0, 0, 0 });
 		SDL_RenderCopy(Game::renderer, texture , NULL, &targetRect);
 		SDL_DestroyTexture(texture);
 	}

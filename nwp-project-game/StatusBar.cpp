@@ -1,9 +1,8 @@
-#pragma once
-
 #include <SDL.h>
 #include "StatusBar.h"
 #include "TextureHelper.h"
 #include "Game.h"
+#include "TimeHelper.h"
 
 void StatusBar::loadTextures() {
 	lifeTexture = TextureHelper::textures["life_stationary"];
@@ -38,40 +37,12 @@ void StatusBar::render() {
 	SDL_RenderCopy(Game::renderer, texture , NULL, &targetRect);
 	SDL_DestroyTexture(texture);
 
-	Uint32 minutes;
-	Uint32 seconds;
-
-	minutes = Game::elapsedTime / 60000;
-	Uint32 remainder = Game::elapsedTime % 60000;
-
-	seconds = remainder / 1000;
-
 	targetRect.x = 1088;
 	targetRect.y = 0;
 	targetRect.w = 192;
 	targetRect.h = 64;
 
-
-	std::string minutesStr;
-	if (minutes <= 9)
-	{
-		minutesStr = "0" + std::to_string(minutes);
-	}
-	else
-	{
-		minutesStr = std::to_string(minutes);
-	}
-
-	std::string secondsStr;
-	if (seconds <= 9)
-	{
-		secondsStr = "0" + std::to_string(seconds);
-	}
-	else
-	{
-		secondsStr = std::to_string(seconds);
-	}
-	texture = TextureHelper::loadFromRenderedText(minutesStr + ":" + secondsStr, { 0, 0, 0 });
+	texture = TextureHelper::loadFromRenderedText(TimeHelper::millisToString(Game::elapsedTime), { 0, 0, 0 });
 	SDL_RenderCopy(Game::renderer, texture , NULL, &targetRect);
 	SDL_DestroyTexture(texture);
 }

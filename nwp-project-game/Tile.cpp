@@ -1,5 +1,3 @@
-#pragma once
-
 #include "Tile.h"
 
 Tile::Tile(int x, int y, std::string ap, std::string t) : CollidingObject(x, y, ap) {

@@ -1,5 +1,3 @@
-#pragma once
-
 #include "CollidingObject.h"
 
 CollidingObject::CollidingObject(int x, int y, std::string ap) : GameObject(x, y, ap) {

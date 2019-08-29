@@ -1,5 +1,3 @@
-#pragma once
-
 #include "Enemy.h"
 #include "Game.h"
 #include "CollisionHelper.h"
@@ -28,42 +26,25 @@ void Enemy::update() {
 		
 	}
 
-	if (velocityY > 0)
+	if (velocityY != 0)
 	{
-		for (int y = 0; y < velocityY; y++)
+		int step = velocityY > 0 ? 1 : -1;
+
+		for (int y = 0; y < std::abs(velocityY); y++)
 		{
-			positionY += 1;
+			positionY += step;
 			setCollisionRect();
 
 			for (int i = 0; i < Level::tiles.size(); i++)
 			{
 				if (CollisionHelper::checkCollision(collisionRect, Level::tiles[i]->collisionRect)) {
-					positionY -= 1;
+					positionY -= step;
 					setCollisionRect();
 					break;
 				}
 			}
 		}
 	}
-
-	if (velocityY < 0)
-	{
-		for (int y = 0; y > velocityY; y--)
-		{
-			positionY -= 1;
-			setCollisionRect();
-
-			for (int i = 0; i < Level::tiles.size(); i++)
-			{
-				if (CollisionHelper::checkCollision(collisionRect, Level::tiles[i]->collisionRect)) {
-					positionY += 1;
-					setCollisionRect();
-					break;
-				}
-			}
-		}
-	}
-
 	
 	for (int i = 0; i < Level::enemies.size(); ++i)
 	{
@@ -104,14 +85,14 @@ void Enemy::update() {
 void Enemy::animate() {
 	if (!isOnGround())
 	{
-		texture = moveTextures[0];
+		texture = jumpingTexture;
 	}
 	else if (velocityX != 0)
 	{
 		texture = moveTextures[(Game::frame / 4) % 4];
 	}
 	else {
-		texture = moveTextures[0];;
+		texture = moveTextures[0];
 	}
 }
 

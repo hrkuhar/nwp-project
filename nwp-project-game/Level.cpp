@@ -1,5 +1,3 @@
-#pragma once
-
 #include "Level.h"
 #include "Game.h"
 #include "StatusBar.h"

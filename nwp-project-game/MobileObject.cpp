@@ -1,5 +1,3 @@
-#pragma once
-
 #include "MobileObject.h"
 #include "Level.h"
 #include "CollisionHelper.h"

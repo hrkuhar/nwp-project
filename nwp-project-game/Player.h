@@ -6,7 +6,7 @@ class Player : public MobileObject {
 
 private:
 	void animate();
-	void move(int vel, int& position, int step);
+	void move(int vel, int& position);
 public:
 	Player();
 

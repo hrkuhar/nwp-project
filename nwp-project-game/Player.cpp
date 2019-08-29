@@ -1,5 +1,3 @@
-#pragma once
-
 #include "Player.h"
 #include "Game.h"
 #include "CollisionHelper.h"
@@ -13,24 +11,14 @@ void Player::update() {
 
 	applyGravity();
 
-	if (velocityX > 0)
+	if (velocityX != 0)
 	{
-		move(velocityX, positionX, 1);
+		move(velocityX, positionX);
 	}
 
-	if (velocityX < 0)
+	if (velocityY != 0)
 	{
-		move(velocityX, positionX, -1);
-	}
-
-	if (velocityY > 0)
-	{
-		move(velocityY, positionY, 1);
-	}
-
-	if (velocityY < 0)
-	{
-		move(velocityY, positionY, -1);
+		move(velocityY, positionY);
 	}
 
 	for (int i = 0; i < Level::enemies.size(); i++)
@@ -134,7 +122,10 @@ bool Player::isOnGround() {
 	return false;
 }
 
-void Player::move(int vel, int& position, int step) {
+void Player::move(int vel, int& position) {
+
+	int step = vel > 0 ? 1 : -1;
+
 	for (int y = 0; y < std::abs(vel); y++)
 	{
 		position += step;
