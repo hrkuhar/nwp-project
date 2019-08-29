@@ -9,10 +9,6 @@ Enemy::Enemy(int x, int y, std::string ap, int jump) : MobileObject(x, y, ap, 2,
 	jumpHeight = jump;
 }
 
-void Enemy::init() {
-	
-}
-
 void Enemy::update() {
 
 	applyGravity();

@@ -9,12 +9,8 @@ void StatusBar::loadTextures() {
 	lifeTexture = TextureHelper::textures["life_stationary"];
 }
 
-void StatusBar::init() {
+StatusBar::StatusBar() {
 	loadTextures();
-}
-
-void StatusBar::update() {
-
 }
 
 void StatusBar::render() {
@@ -78,8 +74,4 @@ void StatusBar::render() {
 	texture = TextureHelper::loadFromRenderedText(minutesStr + ":" + secondsStr, { 0, 0, 0 });
 	SDL_RenderCopy(Game::renderer, texture , NULL, &targetRect);
 	SDL_DestroyTexture(texture);
-}
-
-void StatusBar::clear() {
-
 }

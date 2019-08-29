@@ -5,24 +5,28 @@ Game *game = nullptr;
 int main(int argc, char *argv[])
 {
 	game = new Game();
-	game->init();
-
-	SDL_Event e;
-
-	while (game->isRunning)
+	if (game->init())
 	{
-		while (SDL_PollEvent(&e) != 0)
+		SDL_Event e;
+
+		while (game->isRunning)
 		{
-			game->handleEvent(e);
+			while (SDL_PollEvent(&e) != 0)
+			{
+				game->handleEvent(e);
+			}
+
+			game->update();
+			game->render();
 		}
 
-		game->update();
-		game->render();
+		delete game;
+		game = NULL;
+
+		return 0;
 	}
-
-	game->clear();
-	delete game;
-	game = NULL;
-
-	return 0;
+	else
+	{
+		return 1;
+	}
 }

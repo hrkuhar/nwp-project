@@ -44,6 +44,5 @@ public:
 	bool init();
 	void update();
 	void render();
-	void clear();
 	void handleEvent(SDL_Event& e);
 };

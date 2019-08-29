@@ -13,7 +13,7 @@ void Menu::loadTextures() {
 	menuContinueTexture = TextureHelper::textures["menu_continue_stationary"];
 }
 
-void Menu::init() {
+Menu::Menu() {
 	loadTextures();
 	newGameSelected = true;
 	quitSelected = false;
@@ -32,7 +32,6 @@ void Menu::update() {
 void Menu::render() {
 	SDL_Rect targetRect;
 
-	
 	targetRect.x = 384;
 	targetRect.y = 64;
 	targetRect.w = 512;
@@ -182,8 +181,4 @@ void Menu::handleEvent(SDL_Event& e) {
 			break;
 		}
 	}
-}
-
-void Menu::clear() {
-
 }

@@ -6,10 +6,10 @@ class Player : public MobileObject {
 
 private:
 	void animate();
+	void move(int vel, int& position, int step);
 public:
-	Player(int x, int y, std::string ap);
+	Player();
 
-	void init();
 	void handleEvent(SDL_Event& e);
 	void update();
 	void setPosition(int x, int y);

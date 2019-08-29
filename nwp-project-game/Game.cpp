@@ -141,10 +141,6 @@ Game::Game() {
 	gameOver = false;
 }
 
-Game::~Game() {
-
-}
-
 bool Game::init() {
 	bool success = true;
 
@@ -193,10 +189,8 @@ bool Game::init() {
 	TextureHelper::loadTextures();
 
 	menu = new Menu();
-	menu->init();
 
-	player = new Player(64, 64, "player");
-	player->init();
+	player = new Player();
 
 	nextLevel();
 
@@ -262,24 +256,6 @@ void Game::render() {
 	++frame;
 }
 
-void Game::clear() {
-	TextureHelper::clear();
-
-	delete player;
-	player = NULL;
-	delete menu;
-	menu = NULL;
-
-	SDL_DestroyWindow(window);
-	window = NULL;
-
-	SDL_DestroyRenderer(renderer);
-	renderer = NULL;
-
-	IMG_Quit();
-	SDL_Quit();
-}
-
 void Game::nextLevel() {
 	if (currentLevel > LEVEL_COUNT)
 	{
@@ -288,19 +264,17 @@ void Game::nextLevel() {
 		gameOver = true;
 	}
 
-	level->clear();
 	delete level;
 
-	level = new Level();
-	level->init(map[currentLevel++]);
+	level = new Level(map[currentLevel++]);
 }
 
 void Game::newGame() {
 	currentLevel = 0;
 	lives = 3;
+
 	delete player;
-	player = new Player(64, 64, "player");
-	player->init();
+	player = new Player();
 
 	nextLevel();
 	isInProgress = true;
@@ -327,4 +301,22 @@ void Game::displayMenu() {
 
 		pauseStartTime = SDL_GetTicks();
 	}
+}
+
+Game::~Game() {
+	TextureHelper::clear();
+
+	delete player;
+	player = NULL;
+	delete menu;
+	menu = NULL;
+
+	SDL_DestroyWindow(window);
+	window = NULL;
+
+	SDL_DestroyRenderer(renderer);
+	renderer = NULL;
+
+	IMG_Quit();
+	SDL_Quit();
 }

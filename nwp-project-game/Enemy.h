@@ -12,6 +12,5 @@ private:
 public:
 	Enemy(int posX, int posY, std::string ap, int jump);
 
-	void init();
 	void update();
 };

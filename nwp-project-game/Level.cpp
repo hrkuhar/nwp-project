@@ -22,10 +22,9 @@ enum Tiles {
 	ENEMY_BOUNCER_LIGHT
 };
 
-void Level::init(int map[12][20]) {
+Level::Level(int map[12][20]) {
 
 	statusBar = new StatusBar();
-	statusBar->init();
 
 	clearTiles();
 	clearEnemies();
@@ -65,25 +64,21 @@ void Level::init(int map[12][20]) {
 			else if (map[i][j] == ENEMY_BASIC)
 			{
 				Enemy* enemy = new Enemy(j * 64, (i + 1) * 64, "enemy", NULL);
-				enemy->init();
 				enemies.push_back(enemy);
 			}
 			else if (map[i][j] == ENEMY_BOUNCER_HEAVY)
 			{
 				Enemy* enemy = new Enemy(j * 64, (i + 1) * 64, "enemy_bouncer", 6);
-				enemy->init();
 				enemies.push_back(enemy);
 			}
 			else if (map[i][j] == ENEMY_BOUNCER_MEDIUM)
 			{
 				Enemy* enemy = new Enemy(j * 64, (i + 1) * 64, "enemy_bouncer", 8);
-				enemy->init();
 				enemies.push_back(enemy);
 			}
 			else if (map[i][j] == ENEMY_BOUNCER_LIGHT)
 			{
 				Enemy* enemy = new Enemy(j * 64, (i + 1) * 64, "enemy_bouncer", 10);
-				enemy->init();
 				enemies.push_back(enemy);
 			}
 		}
@@ -91,7 +86,6 @@ void Level::init(int map[12][20]) {
 }
 
 void Level::update() {
-	statusBar->update();
 	for (int i = 0; i < enemies.size(); i++)
 	{
 		enemies[i]->update();
@@ -112,14 +106,6 @@ void Level::render()
 	}
 }
 
-void Level::clear() {
-	delete statusBar;
-	statusBar = NULL;
-
-	clearTiles();
-	clearEnemies();
-}
-
 void Level::clearTiles() {
 	std::vector<Tile*>::iterator it;
 	for (it = tiles.begin(); it != tiles.end(); it++)
@@ -138,4 +124,12 @@ void Level::clearEnemies() {
 	}
 
 	enemies.clear();
+}
+
+Level::~Level() {
+	delete statusBar;
+	statusBar = NULL;
+
+	clearTiles();
+	clearEnemies();
 }

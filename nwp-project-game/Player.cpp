@@ -5,11 +5,7 @@
 #include "CollisionHelper.h"
 #include "Level.h"
 
-Player::Player(int x, int y, std::string ap) : MobileObject(x, y, ap, 4, 0, 0) {
-
-}
-
-void Player::init() {
+Player::Player() : MobileObject(0, 0, "player", 4, 0, 0) {
 
 }
 
@@ -19,156 +15,28 @@ void Player::update() {
 
 	if (velocityX > 0)
 	{
-		for (int x = 0; x < velocityX; x++)
-		{
-			positionX += 1;
-			setCollisionRect();
-
-			for (int i = 0; i < Level::tiles.size(); i++)
-			{
-				if (CollisionHelper::checkCollision(collisionRect, Level::tiles[i]->collisionRect)) {
-					if (Level::tiles[i]->type == "spike")
-					{
-						positionX = Level::startPosX;
-						positionY = Level::startPosY;
-						setCollisionRect();
-						Game::lives--;
-					}
-					else if (Level::tiles[i]->type == "level_start")
-					{
-
-					}
-					else if (Level::tiles[i]->type == "level_end")
-					{
-						Game::nextLevel();
-					}
-					else
-					{
-						positionX -= 1;
-						setCollisionRect();
-						break;
-					}					
-					
-				}
-			}
-		}
+		move(velocityX, positionX, 1);
 	}
 
 	if (velocityX < 0)
 	{
-		for (int x = 0; x > velocityX; x--)
-		{
-			positionX -= 1;
-			setCollisionRect();
-
-			for (int i = 0; i < Level::tiles.size(); i++)
-			{
-				if (CollisionHelper::checkCollision(collisionRect, Level::tiles[i]->collisionRect)) {
-					if (Level::tiles[i]->type == "spike")
-					{
-						positionX = Level::startPosX;
-						positionY = Level::startPosY;
-						setCollisionRect();
-						Game::lives--;
-					}
-					else if (Level::tiles[i]->type == "level_start")
-					{
-						
-					}
-					else if (Level::tiles[i]->type == "level_end")
-					{
-						Game::nextLevel();
-					}
-					else
-					{
-						positionX += 1;
-						setCollisionRect();
-						break;
-					}					
-					
-				}
-			}
-		}
+		move(velocityX, positionX, -1);
 	}
 
 	if (velocityY > 0)
 	{
-		for (int y = 0; y < velocityY; y++)
-		{
-			positionY += 1;
-			setCollisionRect();
-
-			for (int i = 0; i < Level::tiles.size(); i++)
-			{
-				if (CollisionHelper::checkCollision(collisionRect, Level::tiles[i]->collisionRect)) {
-					if (Level::tiles[i]->type == "spike")
-					{
-						positionX = Level::startPosX;
-						positionY = Level::startPosY;
-						setCollisionRect();
-						Game::lives--;
-					}
-					else if (Level::tiles[i]->type == "level_start")
-					{
-
-					}
-					else if (Level::tiles[i]->type == "level_end")
-					{
-						Game::nextLevel();
-					}
-					else
-					{
-						positionY -= 1;
-						setCollisionRect();
-						break;
-					}					
-					
-				}
-			}
-		}
+		move(velocityY, positionY, 1);
 	}
 
 	if (velocityY < 0)
 	{
-		for (int y = 0; y > velocityY; y--)
-		{
-			positionY -= 1;
-			setCollisionRect();
-
-			for (int i = 0; i < Level::tiles.size(); i++)
-			{
-				if (CollisionHelper::checkCollision(collisionRect, Level::tiles[i]->collisionRect)) {
-					if (Level::tiles[i]->type == "spike")
-					{
-						positionX = Level::startPosX;
-						positionY = Level::startPosY;
-						setCollisionRect();
-						Game::lives--;
-					}
-					else if (Level::tiles[i]->type == "level_start")
-					{
-
-					}
-					else if (Level::tiles[i]->type == "level_end")
-					{
-						Game::nextLevel();
-					}
-					else
-					{
-						positionY += 1;
-						setCollisionRect();
-						break;
-					}
-				}
-			}
-		}
+		move(velocityY, positionY, -1);
 	}
 
 	for (int i = 0; i < Level::enemies.size(); i++)
 	{
 		if (CollisionHelper::checkCollision(collisionRect, Level::enemies[i]->collisionRect)) {
-			positionX = Level::startPosX;
-			positionY = Level::startPosY;
+			setPosition(Level::startPosX, Level::startPosY);
 			Game::lives--;
 		}
 	}
@@ -264,4 +132,34 @@ bool Player::isOnGround() {
 		}
 	}
 	return false;
+}
+
+void Player::move(int vel, int& position, int step) {
+	for (int y = 0; y < std::abs(vel); y++)
+	{
+		position += step;
+		setCollisionRect();
+
+		for (int i = 0; i < Level::tiles.size(); i++)
+		{
+			if (CollisionHelper::checkCollision(collisionRect, Level::tiles[i]->collisionRect)) {
+				if (Level::tiles[i]->type == "spike")
+				{
+					setPosition(Level::startPosX, Level::startPosY);
+					Game::lives--;
+				}
+				else if (Level::tiles[i]->type == "level_end")
+				{
+					Game::nextLevel();
+				}
+				else if(Level::tiles[i]->type != "level_start")
+				{
+					position -= step;
+					setCollisionRect();
+					break;
+				}
+
+			}
+		}
+	}
 }
