@@ -2,6 +2,7 @@
 #include "Game.h"
 #include "Player.h"
 #include "TextureHelper.h"
+#include "TextHelper.h"
 #include "Menu.h"
 
 SDL_Renderer* Game::renderer = nullptr;
@@ -142,13 +143,15 @@ Game::Game() {
 bool Game::init() {
 	bool success = true;
 
+	TextHelper::loadCSV();
+
 	if (SDL_Init(SDL_INIT_VIDEO) < 0)
 	{
 		success = false;
 	}
 	else
 	{
-		window = SDL_CreateWindow("NWP game", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
+		window = SDL_CreateWindow(TextHelper::values["game_title"].c_str(), SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
 		if (window == NULL)
 		{
 			success = false;
@@ -183,7 +186,7 @@ bool Game::init() {
 	{
 		success = false;
 	}
-
+	
 	TextureHelper::loadTextures();
 
 	menu = new Menu();

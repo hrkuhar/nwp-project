@@ -57,6 +57,9 @@
     <ClCompile Include="TimeHelper.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="TextHelper.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -98,5 +101,83 @@
     <ClInclude Include="TimeHelper.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="TextHelper.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="assets\brick_stationary.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\enemy_bouncer_jump.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\enemy_bouncer_move_1.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\enemy_bouncer_move_2.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\enemy_bouncer_move_3.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\enemy_bouncer_move_4.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\enemy_move_1.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\enemy_move_2.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\enemy_move_3.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\enemy_move_4.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\level_end_stationary.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\level_start_stationary.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\life_stationary.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\menu_selector_stationary.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\player_jump.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\player_move_1.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\player_move_2.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\player_move_3.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\player_move_4.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\player_stationary.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\spike_stationary.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <Font Include="assets\main_font.ttf">
+      <Filter>Resource Files</Filter>
+    </Font>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="assets\strings.csv">
+      <Filter>Resource Files</Filter>
+    </None>
   </ItemGroup>
 </Project>

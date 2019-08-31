@@ -3,6 +3,7 @@
 #include "TextureHelper.h"
 #include "Game.h"
 #include "TimeHelper.h"
+#include "TextHelper.h"
 
 void Menu::loadTextures() {
 	newGameTexture = TextureHelper::textures["menu_new_game_stationary"];
@@ -58,13 +59,13 @@ void Menu::render() {
 
 		if (Game::currentLevel > Game::LEVEL_COUNT)
 		{
-			message = "You finished the game!";
+			message = TextHelper::values["message_game_finished"];
 		}
 		else {
-			message = "You reached level " + std::to_string(Game::currentLevel) + "!";
+			message = TextHelper::values["message_level_reached"] + std::to_string(Game::currentLevel) + "!";
 		}
 
-		SDL_Texture* texture = TextureHelper::loadFromRenderedText(message + " Total game time: " + TimeHelper::millisToString(Game::elapsedTime), { 0, 0, 0 });
+		SDL_Texture* texture = TextureHelper::loadFromRenderedText(message + TextHelper::values["message_game_time"] + TimeHelper::millisToString(Game::elapsedTime), { 0, 0, 0 });
 		SDL_RenderCopy(Game::renderer, texture , NULL, &targetRect);
 		SDL_DestroyTexture(texture);
 	}

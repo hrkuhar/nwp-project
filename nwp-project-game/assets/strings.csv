@@ -1,0 +1,7 @@
+message_game_finished,You finished the game!,
+message_level_reached,You reached level ,
+message_game_time, Total game time: ,
+game_title,NWPlatformer,
+menu_new_game,New Game,
+menu_continue,Continue,
+menu_quit,Quit

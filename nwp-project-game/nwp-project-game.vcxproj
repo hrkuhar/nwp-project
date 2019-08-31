@@ -141,6 +141,7 @@
     <ClCompile Include="MobileObject.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="StatusBar.cpp" />
+    <ClCompile Include="TextHelper.cpp" />
     <ClCompile Include="TextureHelper.cpp" />
     <ClCompile Include="Tile.cpp" />
     <ClCompile Include="TimeHelper.cpp" />
@@ -156,9 +157,39 @@
     <ClInclude Include="MobileObject.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="StatusBar.h" />
+    <ClInclude Include="TextHelper.h" />
     <ClInclude Include="TextureHelper.h" />
     <ClInclude Include="Tile.h" />
     <ClInclude Include="TimeHelper.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="assets\brick_stationary.png" />
+    <Image Include="assets\enemy_bouncer_jump.png" />
+    <Image Include="assets\enemy_bouncer_move_1.png" />
+    <Image Include="assets\enemy_bouncer_move_2.png" />
+    <Image Include="assets\enemy_bouncer_move_3.png" />
+    <Image Include="assets\enemy_bouncer_move_4.png" />
+    <Image Include="assets\enemy_move_1.png" />
+    <Image Include="assets\enemy_move_2.png" />
+    <Image Include="assets\enemy_move_3.png" />
+    <Image Include="assets\enemy_move_4.png" />
+    <Image Include="assets\level_end_stationary.png" />
+    <Image Include="assets\level_start_stationary.png" />
+    <Image Include="assets\life_stationary.png" />
+    <Image Include="assets\menu_selector_stationary.png" />
+    <Image Include="assets\player_jump.png" />
+    <Image Include="assets\player_move_1.png" />
+    <Image Include="assets\player_move_2.png" />
+    <Image Include="assets\player_move_3.png" />
+    <Image Include="assets\player_move_4.png" />
+    <Image Include="assets\player_stationary.png" />
+    <Image Include="assets\spike_stationary.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Font Include="assets\main_font.ttf" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="assets\strings.csv" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
