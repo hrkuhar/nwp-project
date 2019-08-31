@@ -70,8 +70,8 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>C:\Users\hrvojek\Desktop\NWP projekt\nwp-project\sdl\SDL2_ttf-2.0.15\include;..\sdl\SDL2_image-2.0.5\include;..\sdl\SDL2-2.0.10\include;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\Users\hrvojek\Desktop\NWP projekt\nwp-project\sdl\SDL2_ttf-2.0.15\lib\x86;..\sdl\SDL2_image-2.0.5\lib\x86;..\sdl\SDL2-2.0.10\lib\x86;$(LibraryPath)</LibraryPath>
+    <IncludePath>..\sdl\SDL2_ttf-2.0.15\include;..\sdl\SDL2_image-2.0.5\include;..\sdl\SDL2-2.0.10\include;$(IncludePath)</IncludePath>
+    <LibraryPath>..\sdl\SDL2_ttf-2.0.15\lib\x86;..\sdl\SDL2_image-2.0.5\lib\x86;..\sdl\SDL2-2.0.10\lib\x86;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <IncludePath>..\sdl\SDL2_image-2.0.5\include;..\sdl\SDL2-2.0.10\include;$(IncludePath)</IncludePath>
