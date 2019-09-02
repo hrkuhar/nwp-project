@@ -8,14 +8,19 @@ class Game {
 private:
 	SDL_Window* window;
 	SDL_Surface* screenSurface;
+
+	void loadLevelMaps();
 public:
 	Game();
 	~Game();
 	static const int SCREEN_WIDTH = 1280;
 	static const int SCREEN_HEIGHT = 768;
 	static const int LEVEL_COUNT = 8;
+	static const int LEVEL_TILES_VERTICAL = 11;
+	static const int LEVEL_TILES_HORIZONTAL = 11;
+	static const int TILE_SIZE = SCREEN_WIDTH / 20;
 
-	static int map[LEVEL_COUNT][11][20];
+	static std::vector<std::string> levelMaps;
 
 	static SDL_Renderer* renderer;
 	static TTF_Font *font;

@@ -20,68 +20,84 @@ enum Tiles {
 	ENEMY_BOUNCER_LIGHT
 };
 
-Level::Level(int map[12][20]) {
+Level::Level(std::string map) {
 
 	statusBar = new StatusBar();
 
 	clearTiles();
 	clearEnemies();
 
-	int tileSize = Game::SCREEN_WIDTH / 20;
-
-	for (size_t i = 0; i < 12; i++)
+	int row = 0;
+	int column = 0;
+	for (int i = 0; i < map.size(); i++)
 	{
-		for (size_t j = 0; j < 20; j++)
-		{
-			if (map[i][j] == BRICK)
-			{
-				Tile* tile = new Tile(j * tileSize, (i + 1) * tileSize, "brick", "brick");
-				tile->setCollisionRect();
-				tiles.push_back(tile);
-			}
-			else if (map[i][j] == SPIKES)
-			{
-				Tile* tile = new Tile(j * tileSize, (i + 1) * tileSize, "spike", "spike");
-				tile->setCollisionRect();
-				tiles.push_back(tile);
-			}
-			else if (map[i][j] == LEVEL_START)
-			{
-				startPosX = j * tileSize;
-				startPosY = (i + 1) * tileSize;
-				Game::player->setPosition(startPosX, startPosY);
+		char c = map[i];
+		int code;
 
-				Tile* tile = new Tile(j * tileSize, (i + 1) * tileSize, "level_start", "level_start");
-				tile->setCollisionRect();
-				tiles.push_back(tile);
-			}
-			else if (map[i][j] == LEVEL_END)
-			{
-				Tile* tile = new Tile(j * tileSize, (i + 1) * tileSize, "level_end", "level_end");
-				tile->setCollisionRect();
-				tiles.push_back(tile);
-			}
-			else if (map[i][j] == ENEMY_BASIC)
-			{
-				Enemy* enemy = new Enemy(j * tileSize, (i + 1) * tileSize, "enemy", NULL);
-				enemies.push_back(enemy);
-			}
-			else if (map[i][j] == ENEMY_BOUNCER_HEAVY)
-			{
-				Enemy* enemy = new Enemy(j * tileSize, (i + 1) * tileSize, "enemy_bouncer", 6);
-				enemies.push_back(enemy);
-			}
-			else if (map[i][j] == ENEMY_BOUNCER_MEDIUM)
-			{
-				Enemy* enemy = new Enemy(j * tileSize, (i + 1) * tileSize, "enemy_bouncer", 8);
-				enemies.push_back(enemy);
-			}
-			else if (map[i][j] == ENEMY_BOUNCER_LIGHT)
-			{
-				Enemy* enemy = new Enemy(j * tileSize, (i + 1) * tileSize, "enemy_bouncer", 10);
-				enemies.push_back(enemy);
-			}
+		if (c == '\n')
+		{
+			column = 0;
+			++row;
+			continue;
 		}
+		else if (c == ' ')
+		{
+			continue;
+		}
+		else
+		{
+			code = c - 48;
+		}
+
+		if (code == BRICK)
+		{
+			Tile* tile = new Tile(column * Game::TILE_SIZE, (row + 1) * Game::TILE_SIZE, "brick", "brick");
+			tile->setCollisionRect();
+			tiles.push_back(tile);
+		}
+		else if (code == SPIKES)
+		{
+			Tile* tile = new Tile(column * Game::TILE_SIZE, (row + 1) * Game::TILE_SIZE, "spike", "spike");
+			tile->setCollisionRect();
+			tiles.push_back(tile);
+		}
+		else if (code == LEVEL_START)
+		{
+			startPosX = column * Game::TILE_SIZE;
+			startPosY = (row + 1) * Game::TILE_SIZE;
+			Game::player->setPosition(startPosX, startPosY);
+
+			Tile* tile = new Tile(column * Game::TILE_SIZE, (row + 1) * Game::TILE_SIZE, "level_start", "level_start");
+			tile->setCollisionRect();
+			tiles.push_back(tile);
+		}
+		else if (code == LEVEL_END)
+		{
+			Tile* tile = new Tile(column * Game::TILE_SIZE, (row + 1) * Game::TILE_SIZE, "level_end", "level_end");
+			tile->setCollisionRect();
+			tiles.push_back(tile);
+		}
+		else if (code == ENEMY_BASIC)
+		{
+			Enemy* enemy = new Enemy(column * Game::TILE_SIZE, (row + 1) * Game::TILE_SIZE, "enemy", NULL);
+			enemies.push_back(enemy);
+		}
+		else if (code == ENEMY_BOUNCER_HEAVY)
+		{
+			Enemy* enemy = new Enemy(column * Game::TILE_SIZE, (row + 1) * Game::TILE_SIZE, "enemy_bouncer", 6);
+			enemies.push_back(enemy);
+		}
+		else if (code == ENEMY_BOUNCER_MEDIUM)
+		{
+			Enemy* enemy = new Enemy(column * Game::TILE_SIZE, (row + 1) * Game::TILE_SIZE, "enemy_bouncer", 8);
+			enemies.push_back(enemy);
+		}
+		else if (code == ENEMY_BOUNCER_LIGHT)
+		{
+			Enemy* enemy = new Enemy(column * Game::TILE_SIZE, (row + 1) * Game::TILE_SIZE, "enemy_bouncer", 10);
+			enemies.push_back(enemy);
+		}
+		++column;
 	}
 }
 

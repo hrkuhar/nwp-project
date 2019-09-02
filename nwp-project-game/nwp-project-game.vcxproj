@@ -140,6 +140,9 @@
   <ItemGroup>
     <None Include="assets\strings.csv" />
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="assets\levels.txt" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

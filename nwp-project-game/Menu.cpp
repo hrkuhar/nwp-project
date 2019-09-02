@@ -31,32 +31,30 @@ void Menu::update() {
 
 void Menu::render() {
 
-	int tileSize = Game::SCREEN_WIDTH / 20;
-
 	SDL_Rect targetRect;
 
-	targetRect.x = 6 * tileSize;
-	targetRect.y = tileSize;
-	targetRect.w = 8 * tileSize;
-	targetRect.h = 2 * tileSize;
+	targetRect.x = 6 * Game::TILE_SIZE;
+	targetRect.y = Game::TILE_SIZE;
+	targetRect.w = 8 * Game::TILE_SIZE;
+	targetRect.h = 2 * Game::TILE_SIZE;
 
 	SDL_RenderCopy(Game::renderer, menuTitleTexture, NULL, &targetRect);
 	
 	if (Game::isInProgress)
 	{
-		targetRect.x = 8 * tileSize;
-		targetRect.y = 4 * tileSize;
-		targetRect.w = 4 * tileSize;
-		targetRect.h = tileSize;
+		targetRect.x = 8 * Game::TILE_SIZE;
+		targetRect.y = 4 * Game::TILE_SIZE;
+		targetRect.w = 4 * Game::TILE_SIZE;
+		targetRect.h = Game::TILE_SIZE;
 
 		SDL_RenderCopy(Game::renderer, menuContinueTexture, NULL, &targetRect);
 	}
 	else if (Game::gameOver)
 	{
-		targetRect.x = 2 * tileSize;
-		targetRect.y = 4 * tileSize;
-		targetRect.w = 16 * tileSize;
-		targetRect.h = tileSize;
+		targetRect.x = 2 * Game::TILE_SIZE;
+		targetRect.y = 4 * Game::TILE_SIZE;
+		targetRect.w = 16 * Game::TILE_SIZE;
+		targetRect.h = Game::TILE_SIZE;
 
 		std::string message;
 
@@ -73,35 +71,35 @@ void Menu::render() {
 		SDL_DestroyTexture(texture);
 	}
 
-	targetRect.x = 8 *tileSize;
-	targetRect.y = 6 * tileSize;
-	targetRect.w = 4 * tileSize;
-	targetRect.h = tileSize;
+	targetRect.x = 8 * Game::TILE_SIZE;
+	targetRect.y = 6 * Game::TILE_SIZE;
+	targetRect.w = 4 * Game::TILE_SIZE;
+	targetRect.h = Game::TILE_SIZE;
 
 	SDL_RenderCopy(Game::renderer, newGameTexture, NULL, &targetRect);
 
-	targetRect.x = 8 * tileSize;
-	targetRect.y = 8 * tileSize;
-	targetRect.w = 4 * tileSize;
-	targetRect.h = tileSize;
+	targetRect.x = 8 * Game::TILE_SIZE;
+	targetRect.y = 8 * Game::TILE_SIZE;
+	targetRect.w = 4 * Game::TILE_SIZE;
+	targetRect.h = Game::TILE_SIZE;
 
 	SDL_RenderCopy(Game::renderer, quitTexture, NULL, &targetRect);
 
-	targetRect.x = 6 * tileSize;
-	targetRect.w = tileSize;
-	targetRect.h = tileSize;
+	targetRect.x = 6 * Game::TILE_SIZE;
+	targetRect.w = Game::TILE_SIZE;
+	targetRect.h = Game::TILE_SIZE;
 
 	if (continueSelected)
 	{
-		targetRect.y = 4 * tileSize;
+		targetRect.y = 4 * Game::TILE_SIZE;
 	}
 	else if (newGameSelected)
 	{
-		targetRect.y = 6 * tileSize;
+		targetRect.y = 6 * Game::TILE_SIZE;
 	}
 	else if (quitSelected)
 	{
-		targetRect.y = 8 * tileSize;
+		targetRect.y = 8 * Game::TILE_SIZE;
 	}
 
 	SDL_RenderCopy(Game::renderer, menuSelectorTexture, NULL, &targetRect);

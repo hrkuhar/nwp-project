@@ -9,7 +9,7 @@ private:
 	void clearTiles();
 	void clearEnemies();
 public:
-	Level(int map[12][20]);
+	Level(std::string level);
 	~Level();
 
 	static std::vector<Tile*> tiles;
