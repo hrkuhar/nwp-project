@@ -7,13 +7,15 @@ void GameObject::render() {
 	SDL_Rect targetRect;
 	targetRect.x = positionX;
 	targetRect.y = positionY;
-	targetRect.w = WIDTH;
-	targetRect.h = HEIGHT;
+	targetRect.w = width;
+	targetRect.h = height;
 
 	SDL_RenderCopyEx(Game::renderer, texture, NULL, &targetRect, NULL, NULL, flipTextures);
 }
 
 GameObject::GameObject(int x, int y, std::string ap) {
+	height = Game::SCREEN_WIDTH / 20;
+	width = Game::SCREEN_WIDTH / 20;
 	positionX = x;
 	positionY = y;
 	assetsPrefix = ap;

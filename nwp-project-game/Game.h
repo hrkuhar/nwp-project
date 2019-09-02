@@ -12,7 +12,7 @@ public:
 	Game();
 	~Game();
 	static const int SCREEN_WIDTH = 1280;
-	static const int SCREEN_HEIGHT = 720;
+	static const int SCREEN_HEIGHT = 768;
 	static const int LEVEL_COUNT = 8;
 
 	static int map[LEVEL_COUNT][11][20];

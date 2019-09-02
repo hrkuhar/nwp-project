@@ -4,8 +4,8 @@
 
 class GameObject {
 protected:
-	const int WIDTH = 64;
-	const int HEIGHT = 64;
+	int width;
+	int height;
 
 	SDL_Texture* texture;
 	SDL_Texture* standingTexture;

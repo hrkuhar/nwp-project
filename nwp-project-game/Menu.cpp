@@ -30,30 +30,33 @@ void Menu::update() {
 }
 
 void Menu::render() {
+
+	int tileSize = Game::SCREEN_WIDTH / 20;
+
 	SDL_Rect targetRect;
 
-	targetRect.x = 384;
-	targetRect.y = 64;
-	targetRect.w = 512;
-	targetRect.h = 128;
+	targetRect.x = 6 * tileSize;
+	targetRect.y = tileSize;
+	targetRect.w = 8 * tileSize;
+	targetRect.h = 2 * tileSize;
 
 	SDL_RenderCopy(Game::renderer, menuTitleTexture, NULL, &targetRect);
 	
 	if (Game::isInProgress)
 	{
-		targetRect.x = 512;
-		targetRect.y = 256;
-		targetRect.w = 256;
-		targetRect.h = 64;
+		targetRect.x = 8 * tileSize;
+		targetRect.y = 4 * tileSize;
+		targetRect.w = 4 * tileSize;
+		targetRect.h = tileSize;
 
 		SDL_RenderCopy(Game::renderer, menuContinueTexture, NULL, &targetRect);
 	}
 	else if (Game::gameOver)
 	{
-		targetRect.x = 128;
-		targetRect.y = 256;
-		targetRect.w = 1024;
-		targetRect.h = 64;
+		targetRect.x = 2 * tileSize;
+		targetRect.y = 4 * tileSize;
+		targetRect.w = 16 * tileSize;
+		targetRect.h = tileSize;
 
 		std::string message;
 
@@ -70,35 +73,35 @@ void Menu::render() {
 		SDL_DestroyTexture(texture);
 	}
 
-	targetRect.x = 512;
-	targetRect.y = 384;
-	targetRect.w = 256;
-	targetRect.h = 64;
+	targetRect.x = 8 *tileSize;
+	targetRect.y = 6 * tileSize;
+	targetRect.w = 4 * tileSize;
+	targetRect.h = tileSize;
 
 	SDL_RenderCopy(Game::renderer, newGameTexture, NULL, &targetRect);
 
-	targetRect.x = 512;
-	targetRect.y = 512;
-	targetRect.w = 256;
-	targetRect.h = 64;
+	targetRect.x = 8 * tileSize;
+	targetRect.y = 8 * tileSize;
+	targetRect.w = 4 * tileSize;
+	targetRect.h = tileSize;
 
 	SDL_RenderCopy(Game::renderer, quitTexture, NULL, &targetRect);
 
-	targetRect.x = 384;
-	targetRect.w = 64;
-	targetRect.h = 64;
+	targetRect.x = 6 * tileSize;
+	targetRect.w = tileSize;
+	targetRect.h = tileSize;
 
 	if (continueSelected)
 	{
-		targetRect.y = 256;
+		targetRect.y = 4 * tileSize;
 	}
 	else if (newGameSelected)
 	{
-		targetRect.y = 384;
+		targetRect.y = 6 * tileSize;
 	}
 	else if (quitSelected)
 	{
-		targetRect.y = 512;
+		targetRect.y = 8 * tileSize;
 	}
 
 	SDL_RenderCopy(Game::renderer, menuSelectorTexture, NULL, &targetRect);

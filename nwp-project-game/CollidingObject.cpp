@@ -5,8 +5,8 @@ CollidingObject::CollidingObject(int x, int y, std::string ap) : GameObject(x, y
 }
 
 void CollidingObject::setCollisionRect() {
-	collisionRect->w = WIDTH;
-	collisionRect->h = HEIGHT;
+	collisionRect->w = width;
+	collisionRect->h = height;
 	collisionRect->x = positionX;
 	collisionRect->y = positionY;
 }

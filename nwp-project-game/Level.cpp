@@ -27,56 +27,58 @@ Level::Level(int map[12][20]) {
 	clearTiles();
 	clearEnemies();
 
+	int tileSize = Game::SCREEN_WIDTH / 20;
+
 	for (size_t i = 0; i < 12; i++)
 	{
 		for (size_t j = 0; j < 20; j++)
 		{
 			if (map[i][j] == BRICK)
 			{
-				Tile* tile = new Tile(j * 64, (i + 1) * 64, "brick", "brick");
+				Tile* tile = new Tile(j * tileSize, (i + 1) * tileSize, "brick", "brick");
 				tile->setCollisionRect();
 				tiles.push_back(tile);
 			}
 			else if (map[i][j] == SPIKES)
 			{
-				Tile* tile = new Tile(j * 64, (i + 1) * 64, "spike", "spike");
+				Tile* tile = new Tile(j * tileSize, (i + 1) * tileSize, "spike", "spike");
 				tile->setCollisionRect();
 				tiles.push_back(tile);
 			}
 			else if (map[i][j] == LEVEL_START)
 			{
-				startPosX = j * 64;
-				startPosY = (i + 1) * 64;
+				startPosX = j * tileSize;
+				startPosY = (i + 1) * tileSize;
 				Game::player->setPosition(startPosX, startPosY);
 
-				Tile* tile = new Tile(j * 64, (i + 1) * 64, "level_start", "level_start");
+				Tile* tile = new Tile(j * tileSize, (i + 1) * tileSize, "level_start", "level_start");
 				tile->setCollisionRect();
 				tiles.push_back(tile);
 			}
 			else if (map[i][j] == LEVEL_END)
 			{
-				Tile* tile = new Tile(j * 64, (i + 1) * 64, "level_end", "level_end");
+				Tile* tile = new Tile(j * tileSize, (i + 1) * tileSize, "level_end", "level_end");
 				tile->setCollisionRect();
 				tiles.push_back(tile);
 			}
 			else if (map[i][j] == ENEMY_BASIC)
 			{
-				Enemy* enemy = new Enemy(j * 64, (i + 1) * 64, "enemy", NULL);
+				Enemy* enemy = new Enemy(j * tileSize, (i + 1) * tileSize, "enemy", NULL);
 				enemies.push_back(enemy);
 			}
 			else if (map[i][j] == ENEMY_BOUNCER_HEAVY)
 			{
-				Enemy* enemy = new Enemy(j * 64, (i + 1) * 64, "enemy_bouncer", 6);
+				Enemy* enemy = new Enemy(j * tileSize, (i + 1) * tileSize, "enemy_bouncer", 6);
 				enemies.push_back(enemy);
 			}
 			else if (map[i][j] == ENEMY_BOUNCER_MEDIUM)
 			{
-				Enemy* enemy = new Enemy(j * 64, (i + 1) * 64, "enemy_bouncer", 8);
+				Enemy* enemy = new Enemy(j * tileSize, (i + 1) * tileSize, "enemy_bouncer", 8);
 				enemies.push_back(enemy);
 			}
 			else if (map[i][j] == ENEMY_BOUNCER_LIGHT)
 			{
-				Enemy* enemy = new Enemy(j * 64, (i + 1) * 64, "enemy_bouncer", 10);
+				Enemy* enemy = new Enemy(j * tileSize, (i + 1) * tileSize, "enemy_bouncer", 10);
 				enemies.push_back(enemy);
 			}
 		}

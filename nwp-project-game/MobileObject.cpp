@@ -61,17 +61,17 @@ void MobileObject::applyGravity() {
 }
 
 void MobileObject::checkBoundries() {
-	if (positionY + HEIGHT >= Game::SCREEN_HEIGHT)
+	if (positionY + height >= Game::SCREEN_HEIGHT)
 	{
-		positionY = Game::SCREEN_HEIGHT - HEIGHT;
+		positionY = Game::SCREEN_HEIGHT - height;
 	}
 	if (positionX < 1)
 	{
 		positionX = 1;
 	}
-	if (positionX + WIDTH >= Game::SCREEN_WIDTH)
+	if (positionX + width >= Game::SCREEN_WIDTH)
 	{
-		positionX = Game::SCREEN_WIDTH - WIDTH;
+		positionX = Game::SCREEN_WIDTH - width;
 	}
 }
 

@@ -94,9 +94,9 @@ void Player::animate() {
 }
 
 void Player::setCollisionRect() {
-	collisionRect->w = WIDTH / 2;
-	collisionRect->h = HEIGHT;
-	collisionRect->x = positionX + WIDTH / 4;
+	collisionRect->w = width / 2;
+	collisionRect->h = height;
+	collisionRect->x = positionX + width / 4;
 	collisionRect->y = positionY;
 }
 
