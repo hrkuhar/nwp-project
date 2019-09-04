@@ -18,7 +18,7 @@ void Enemy::update() {
 	{
 			for (int i = 0; i < Level::tiles.size(); i++)
 			{
-				if (CollisionHelper::checkCollision(collisionRect, Level::tiles[i]->collisionRect)) {
+				if (CollisionHelper::checkCollision(collisionRect, Level::tiles[i].collisionRect)) {
 					changeDirection();
 					break;
 				}
@@ -37,7 +37,7 @@ void Enemy::update() {
 
 			for (int i = 0; i < Level::tiles.size(); i++)
 			{
-				if (CollisionHelper::checkCollision(collisionRect, Level::tiles[i]->collisionRect)) {
+				if (CollisionHelper::checkCollision(collisionRect, Level::tiles[i].collisionRect)) {
 					positionY -= step;
 					setCollisionRect();
 					break;
@@ -48,7 +48,7 @@ void Enemy::update() {
 	
 	for (int i = 0; i < Level::enemies.size(); ++i)
 	{
-		if (this != Level::enemies[i] && CollisionHelper::checkCollision(this->collisionRect, Level::enemies[i]->collisionRect))
+		if (this != &Level::enemies[i] && CollisionHelper::checkCollision(this->collisionRect, Level::enemies[i].collisionRect))
 		{
 			positionX -= velocityX;
 			positionY -= velocityY;

@@ -2,8 +2,8 @@
 #include "Game.h"
 #include "StatusBar.h"
 
-std::vector<Enemy*> Level::enemies;
-std::vector<Tile*> Level::tiles;
+std::vector<Enemy> Level::enemies;
+std::vector<Tile> Level::tiles;
 StatusBar* statusBar = nullptr;
 int Level::startPosX;
 int Level::startPosY;
@@ -24,8 +24,8 @@ Level::Level(std::string map) {
 
 	statusBar = new StatusBar();
 
-	clearTiles();
-	clearEnemies();
+	tiles.clear();
+	enemies.clear();
 
 	int row = 0;
 	int column = 0;
@@ -51,14 +51,14 @@ Level::Level(std::string map) {
 
 		if (code == BRICK)
 		{
-			Tile* tile = new Tile(column * Game::TILE_SIZE, (row + 1) * Game::TILE_SIZE, "brick", "brick");
-			tile->setCollisionRect();
+			Tile tile(column * Game::TILE_SIZE, (row + 1) * Game::TILE_SIZE, "brick", "brick");
+			tile.setCollisionRect();
 			tiles.push_back(tile);
 		}
 		else if (code == SPIKES)
 		{
-			Tile* tile = new Tile(column * Game::TILE_SIZE, (row + 1) * Game::TILE_SIZE, "spike", "spike");
-			tile->setCollisionRect();
+			Tile tile(column * Game::TILE_SIZE, (row + 1) * Game::TILE_SIZE, "spike", "spike");
+			tile.setCollisionRect();
 			tiles.push_back(tile);
 		}
 		else if (code == LEVEL_START)
@@ -67,34 +67,34 @@ Level::Level(std::string map) {
 			startPosY = (row + 1) * Game::TILE_SIZE;
 			Game::player->setPosition(startPosX, startPosY);
 
-			Tile* tile = new Tile(column * Game::TILE_SIZE, (row + 1) * Game::TILE_SIZE, "level_start", "level_start");
-			tile->setCollisionRect();
+			Tile tile(column * Game::TILE_SIZE, (row + 1) * Game::TILE_SIZE, "level_start", "level_start");
+			tile.setCollisionRect();
 			tiles.push_back(tile);
 		}
 		else if (code == LEVEL_END)
 		{
-			Tile* tile = new Tile(column * Game::TILE_SIZE, (row + 1) * Game::TILE_SIZE, "level_end", "level_end");
-			tile->setCollisionRect();
+			Tile tile(column * Game::TILE_SIZE, (row + 1) * Game::TILE_SIZE, "level_end", "level_end");
+			tile.setCollisionRect();
 			tiles.push_back(tile);
 		}
 		else if (code == ENEMY_BASIC)
 		{
-			Enemy* enemy = new Enemy(column * Game::TILE_SIZE, (row + 1) * Game::TILE_SIZE, "enemy", NULL);
+			Enemy enemy(column * Game::TILE_SIZE, (row + 1) * Game::TILE_SIZE, "enemy", NULL);
 			enemies.push_back(enemy);
 		}
 		else if (code == ENEMY_BOUNCER_HEAVY)
 		{
-			Enemy* enemy = new Enemy(column * Game::TILE_SIZE, (row + 1) * Game::TILE_SIZE, "enemy_bouncer", 6);
+			Enemy enemy(column * Game::TILE_SIZE, (row + 1) * Game::TILE_SIZE, "enemy_bouncer", 6);
 			enemies.push_back(enemy);
 		}
 		else if (code == ENEMY_BOUNCER_MEDIUM)
 		{
-			Enemy* enemy = new Enemy(column * Game::TILE_SIZE, (row + 1) * Game::TILE_SIZE, "enemy_bouncer", 8);
+			Enemy enemy(column * Game::TILE_SIZE, (row + 1) * Game::TILE_SIZE, "enemy_bouncer", 8);
 			enemies.push_back(enemy);
 		}
 		else if (code == ENEMY_BOUNCER_LIGHT)
 		{
-			Enemy* enemy = new Enemy(column * Game::TILE_SIZE, (row + 1) * Game::TILE_SIZE, "enemy_bouncer", 10);
+			Enemy enemy(column * Game::TILE_SIZE, (row + 1) * Game::TILE_SIZE, "enemy_bouncer", 10);
 			enemies.push_back(enemy);
 		}
 		++column;
@@ -104,7 +104,7 @@ Level::Level(std::string map) {
 void Level::update() {
 	for (int i = 0; i < enemies.size(); i++)
 	{
-		enemies[i]->update();
+		enemies[i].update();
 	}
 }
 
@@ -113,39 +113,19 @@ void Level::render()
 	statusBar->render();
 	for (int i = 0; i < tiles.size(); i++)
 	{
-		tiles[i]->render();
+		tiles[i].render();
 	}
 
 	for (int i = 0; i < enemies.size(); i++)
 	{
-		enemies[i]->render();
+		enemies[i].render();
 	}
-}
-
-void Level::clearTiles() {
-	std::vector<Tile*>::iterator it;
-	for (it = tiles.begin(); it != tiles.end(); it++)
-	{
-		delete *it;
-	}
-
-	tiles.clear();
-}
-
-void Level::clearEnemies() {
-	std::vector<Enemy*>::iterator it;
-	for (it = enemies.begin(); it != enemies.end(); it++)
-	{
-		delete *it;
-	}
-
-	enemies.clear();
 }
 
 Level::~Level() {
 	delete statusBar;
 	statusBar = NULL;
 
-	clearTiles();
-	clearEnemies();
+	tiles.clear();
+	enemies.clear();
 }

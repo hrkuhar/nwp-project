@@ -23,7 +23,7 @@ void Player::update() {
 
 	for (int i = 0; i < Level::enemies.size(); i++)
 	{
-		if (CollisionHelper::checkCollision(collisionRect, Level::enemies[i]->collisionRect)) {
+		if (CollisionHelper::checkCollision(collisionRect, Level::enemies[i].collisionRect)) {
 			setPosition(Level::startPosX, Level::startPosY);
 			Game::lives--;
 		}
@@ -115,7 +115,7 @@ bool Player::isOnGround() {
 
 	for (int i = 0; i < Level::tiles.size(); i++)
 	{
-		if ((CollisionHelper::checkCollision(&testRect, Level::tiles[i]->collisionRect) && Level::tiles[i]->type == "brick")) {
+		if ((CollisionHelper::checkCollision(&testRect, Level::tiles[i].collisionRect) && Level::tiles[i].type == "brick")) {
 			return true;
 		}
 	}
@@ -133,17 +133,17 @@ void Player::move(int vel, int& position) {
 
 		for (int i = 0; i < Level::tiles.size(); i++)
 		{
-			if (CollisionHelper::checkCollision(collisionRect, Level::tiles[i]->collisionRect)) {
-				if (Level::tiles[i]->type == "spike")
+			if (CollisionHelper::checkCollision(collisionRect, Level::tiles[i].collisionRect)) {
+				if (Level::tiles[i].type == "spike")
 				{
 					setPosition(Level::startPosX, Level::startPosY);
 					Game::lives--;
 				}
-				else if (Level::tiles[i]->type == "level_end")
+				else if (Level::tiles[i].type == "level_end")
 				{
 					Game::nextLevel();
 				}
-				else if(Level::tiles[i]->type != "level_start")
+				else if(Level::tiles[i].type != "level_start")
 				{
 					position -= step;
 					setCollisionRect();

@@ -20,7 +20,7 @@ bool MobileObject::isOnGround() {
 
 	for (int i = 0; i < Level::tiles.size(); i++)
 	{
-		if ((CollisionHelper::checkCollision(&testRect, Level::tiles[i]->collisionRect))) {
+		if ((CollisionHelper::checkCollision(&testRect, Level::tiles[i].collisionRect))) {
 			return true;
 		}
 	}
@@ -36,7 +36,7 @@ bool MobileObject::isTouchingCeiling() {
 
 	for (int i = 0; i < Level::tiles.size(); i++)
 	{
-		if ((CollisionHelper::checkCollision(&testRect, Level::tiles[i]->collisionRect) && Level::tiles[i]->type == "brick")) {
+		if ((CollisionHelper::checkCollision(&testRect, Level::tiles[i].collisionRect) && Level::tiles[i].type == "brick")) {
 			return true;
 		}
 	}
